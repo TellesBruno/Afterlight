@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: b9b50ebed61653d44a9587c9b8d14f3d
+timeCreated: 1514213788
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 174059
+  packageName: Cyberpunk UI
+  packageVersion: 2019.1.1.1
+  assetPath: Assets/_Heathen Engineering/Assets/SystemsCore/Scripts/Events/Change
+    Event Listeners/BoolChangeEventListener.cs
+  uploadId: 466403

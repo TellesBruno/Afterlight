@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 65df3a1bac763c74e96409876f2fd1d0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 174059
+  packageName: Cyberpunk UI
+  packageVersion: 2019.1.1.1
+  assetPath: Assets/_Heathen Engineering/Assets/SystemsCore/Scripts/Events/Game Event
+    Listeners/IGameEventListener.cs
+  uploadId: 466403

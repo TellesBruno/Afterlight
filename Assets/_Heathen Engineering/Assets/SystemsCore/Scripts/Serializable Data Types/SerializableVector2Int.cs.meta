@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 6977043ee2d049b47b4e79c2f05c9cf3
+timeCreated: 1514901575
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 174059
+  packageName: Cyberpunk UI
+  packageVersion: 2019.1.1.1
+  assetPath: Assets/_Heathen Engineering/Assets/SystemsCore/Scripts/Serializable
+    Data Types/SerializableVector2Int.cs
+  uploadId: 466403

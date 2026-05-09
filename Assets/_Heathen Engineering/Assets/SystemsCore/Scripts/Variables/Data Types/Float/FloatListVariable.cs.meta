@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 0ffea25462ee09a449fb80cb692e68c4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 174059
+  packageName: Cyberpunk UI
+  packageVersion: 2019.1.1.1
+  assetPath: Assets/_Heathen Engineering/Assets/SystemsCore/Scripts/Variables/Data
+    Types/Float/FloatListVariable.cs
+  uploadId: 466403

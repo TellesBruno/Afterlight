@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73cdc93b4dca01f478d97f194af08e05, type: 3}
+  m_Name: ClueTest
+  m_EditorClassIdentifier: Assembly-CSharp::ClueData
+  id: clue_000_test
+  title: Pista de Teste
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+    mattis, velit ac vestibulum ornare, odio lacus blandit elit, vitae pellentesque
+    tortor diam quis orci. Cras euismod, diam sed elementum aliquam, mauris felis
+    blandit est, nec posuere enim nisi vel nisi. Fusce posuere eros enim, at vehicula
+    enim molestie et. Etiam luctus scelerisque tortor. Aliquam euismod porta volutpat.
+    Duis eu felis dapibus diam viverra ultrices. Suspendisse non mollis orci. Aliquam
+    tempus pharetra dui, non sodales arcu convallis non. Donec neque odio, commodo
+    sed diam finibus, congue feugiat sem. Mauris pretium, diam vehicula lobortis
+    placerat, sem orci aliquet orci, non aliquam erat erat bibendum tellus. Maecenas
+    purus ipsum, ultrices at porta placerat, convallis vitae tortor. Interdum et
+    malesuada fames ac ante ipsum primis in faucibus. Cras pharetra facilisis eros,
+    vel tincidunt sapien. Integer nec luctus lorem. Mauris vel magna libero. Nam
+    porta in mi ut porttitor.

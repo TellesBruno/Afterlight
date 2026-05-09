@@ -15,6 +15,7 @@ public class WeaponController : MonoBehaviour
     [Header("Ammo")]
     public int maxAmmo = 30;
     public int currentAmmo = 30;
+    public int totalAmmo = 90;
 
     [Header("Aiming")]
     public float aimZoomRatio = 0.7f;
@@ -66,7 +67,10 @@ public class WeaponController : MonoBehaviour
     {
         IsReloading = true;
         yield return new WaitForSeconds(2f); // placeholder — replace with animation length
-        currentAmmo = maxAmmo;
+        int needed  = maxAmmo - currentAmmo;
+        int drawn   = Mathf.Min(needed, totalAmmo);
+        currentAmmo += drawn;
+        totalAmmo   -= drawn;
         IsReloading = false;
     }
 

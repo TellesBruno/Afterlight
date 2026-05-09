@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 993bc833b2f53fb4e91b6f67da66a4ec
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 174059
+  packageName: Cyberpunk UI
+  packageVersion: 2019.1.1.1
+  assetPath: Assets/_Heathen Engineering/Assets/SystemsCore/Scripts/Events/Change
+    Events/UnsignedLongChangeEvent.cs
+  uploadId: 466403

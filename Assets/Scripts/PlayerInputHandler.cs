@@ -20,6 +20,10 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction _nextWeaponAction;
     private InputAction _interactAction;
 
+    private InputAction _saveStateAction;
+    private InputAction _loadStateAction;
+    private InputAction _clueMenuAction;
+
     private bool _fireWasHeld;
 
     void Start()
@@ -36,6 +40,10 @@ public class PlayerInputHandler : MonoBehaviour
         _nextWeaponAction = InputSystem.actions.FindAction("Player/Next");
         _interactAction   = InputSystem.actions.FindAction("Player/Interact");
 
+        _saveStateAction  = InputSystem.actions.FindAction("UI/SaveState");
+        _loadStateAction  = InputSystem.actions.FindAction("UI/LoadState");
+        _clueMenuAction   = InputSystem.actions.FindAction("UI/ClueMenuKey");
+
         _moveAction?.Enable();
         _lookAction?.Enable();
         _jumpAction?.Enable();
@@ -47,6 +55,10 @@ public class PlayerInputHandler : MonoBehaviour
         _prevWeaponAction?.Enable();
         _nextWeaponAction?.Enable();
         _interactAction?.Enable();
+
+        _saveStateAction?.Enable();
+        _loadStateAction?.Enable();
+        _clueMenuAction?.Enable();
     }
 
     void LateUpdate()
@@ -157,4 +169,15 @@ public class PlayerInputHandler : MonoBehaviour
     {
         return CanProcessInput() && (_interactAction?.WasPressedThisFrame() ?? false);
     }
+
+    // ── UI / Global actions (bypass CanProcessInput — work regardless of cursor state) ──
+
+    /// <summary>True the frame F5 is pressed. Works even when a menu is open.</summary>
+    public bool GetSaveDown() => _saveStateAction?.WasPressedThisFrame() ?? false;
+
+    /// <summary>True the frame F8 is pressed. Works even when a menu is open.</summary>
+    public bool GetLoadDown() => _loadStateAction?.WasPressedThisFrame() ?? false;
+
+    /// <summary>True the frame I is pressed. Works regardless of cursor lock state.</summary>
+    public bool GetClueMenuDown() => _clueMenuAction?.WasPressedThisFrame() ?? false;
 }

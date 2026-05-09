@@ -144,6 +144,7 @@ MonoBehaviour:
   recoilForce: 0.5
   maxAmmo: 10
   currentAmmo: 10
+  totalAmmo: 200
   aimZoomRatio: 0.7
   aimOffset: {x: 0, y: 0, z: 0}
   projectilePrefab: {fileID: 1161460403343284870, guid: 4866080ba7781274685400a19bd236cd, type: 3}
