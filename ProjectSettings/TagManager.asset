@@ -8,6 +8,11 @@ TagManager:
   - Weapon
   - PlayerBody
   - Enemy
+  - ClueButton
+  - ClueMenu
+  - ClueObject
+  - PlayerUI
+  - EnvironmentalDamage
   layers:
   - Default
   - TransparentFX

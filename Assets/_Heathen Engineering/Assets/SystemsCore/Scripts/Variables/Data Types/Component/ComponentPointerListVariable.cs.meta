@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: f34bc89fd4159cd4b943da6eb807dd9b
+timeCreated: 1512745923
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 174059
+  packageName: Cyberpunk UI
+  packageVersion: 2019.1.1.1
+  assetPath: Assets/_Heathen Engineering/Assets/SystemsCore/Scripts/Variables/Data
+    Types/Component/ComponentPointerListVariable.cs
+  uploadId: 466403

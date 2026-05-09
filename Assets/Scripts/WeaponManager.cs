@@ -382,6 +382,7 @@ public class WeaponManager : MonoBehaviour
         return null;
     }
 
+    public int SlotCount => _weaponSlots.Length;
     public WeaponController GetActiveWeapon()           => GetWeaponAtSlotIndex(ActiveWeaponIndex);
     public WeaponController GetWeaponAtSlotIndex(int i) =>
         (i >= 0 && i < _weaponSlots.Length) ? _weaponSlots[i] : null;

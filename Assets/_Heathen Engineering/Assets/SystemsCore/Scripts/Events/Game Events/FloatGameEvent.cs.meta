@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 330f903af0880b945b0b0c9e3f02e5a9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 174059
+  packageName: Cyberpunk UI
+  packageVersion: 2019.1.1.1
+  assetPath: Assets/_Heathen Engineering/Assets/SystemsCore/Scripts/Events/Game Events/FloatGameEvent.cs
+  uploadId: 466403

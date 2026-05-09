@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: fea353893b5c9134c8981e5b6fb24f51
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 174059
+  packageName: Cyberpunk UI
+  packageVersion: 2019.1.1.1
+  assetPath: Assets/_Heathen Engineering/Assets/SystemsCore/Scripts/Events/Change
+    Events/ICollectionChangeEvent.cs
+  uploadId: 466403

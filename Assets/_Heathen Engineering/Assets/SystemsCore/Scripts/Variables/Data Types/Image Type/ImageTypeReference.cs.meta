@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: c58aece21031c434a89b6845b65c19b6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 174059
+  packageName: Cyberpunk UI
+  packageVersion: 2019.1.1.1
+  assetPath: Assets/_Heathen Engineering/Assets/SystemsCore/Scripts/Variables/Data
+    Types/Image Type/ImageTypeReference.cs
+  uploadId: 466403
