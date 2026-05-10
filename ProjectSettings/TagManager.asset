@@ -13,6 +13,7 @@ TagManager:
   - ClueObject
   - PlayerUI
   - EnvironmentalDamage
+  - DialogScreen
   layers:
   - Default
   - TransparentFX

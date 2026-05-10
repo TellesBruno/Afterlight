@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f4087c3fe506948a7c3497cb756da8, type: 3}
+  m_Name: JohnNPC
+  m_EditorClassIdentifier: Assembly-CSharp::NPCData
+  id: NPC_000_John_NPC
+  greeting: "Ol\xE1, o que voc\xEA quer?"
+  options:
+  - optionText: "O que voc\xEA faz aqui?"
+    responseText: "Eu estou aqui para testar a l\xF3gica dos dialogos com personagens!"
+    requiredClue: {fileID: 0}
+    clueToGrant: {fileID: 0}
+  - optionText: Lorem Ipsum?
+    responseText: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+      sed aliquam ipsum, lacinia condimentum ante. Cras cursus consequat metus, at
+      lobortis massa blandit a. Vestibulum arcu lorem, hendrerit et aliquam et, imperdiet
+      quis risus. In ligula nibh, luctus vel ultricies dictum, porttitor et nisl.
+      Phasellus ut lacus velit. Aliquam id sem sapien. Ut nec faucibus lacus.
+    requiredClue: {fileID: 0}
+    clueToGrant: {fileID: 0}
+  - optionText: "Essa foto aqui \xE9 sua?"
+    responseText: "Sim, obrigado por encontrala. Como voc\xEA me ajudou, aqui est\xE1
+      a [Pista de Teste]"
+    requiredClue: {fileID: 11400000, guid: 295ea067bf483d44da96bc9779da4e56, type: 2}
+    clueToGrant: {fileID: 11400000, guid: 829b13385d9dca444a429e77beb5f63a, type: 2}
+  closeOptionText: "At\xE9 logo."
