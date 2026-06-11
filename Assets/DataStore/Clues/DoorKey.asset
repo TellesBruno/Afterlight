@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73cdc93b4dca01f478d97f194af08e05, type: 3}
+  m_Name: DoorKey
+  m_EditorClassIdentifier: Assembly-CSharp::ClueData
+  id: 003_door_key
+  title: Chave de acesso Nv1
+  description: "Chave eletronica que pode ser usada para acessar a porta autom\xE1tica
+    do armaz\xE9m pr\xF3ximo."
