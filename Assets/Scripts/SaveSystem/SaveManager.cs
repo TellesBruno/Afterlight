@@ -109,6 +109,18 @@ public class SaveManager : MonoBehaviour
         Debug.Log($"[SaveManager] Game loaded from {SavePath}");
     }
 
+    public void RegisterPlayer(Transform playerTransform, PlayerHealth playerHealth, WeaponManager weaponManager)
+    {
+        this.playerTransform = playerTransform;
+        this.playerHealth    = playerHealth;
+        this.weaponManager   = weaponManager;
+    }
+
+    public void RegisterClueInventory(ClueInventory clueInventory)
+    {
+        this.clueInventory = clueInventory;
+    }
+
     public bool HasSaveFile() => File.Exists(SavePath);
 
     public void DeleteSave()

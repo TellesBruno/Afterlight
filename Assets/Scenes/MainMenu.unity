@@ -616,7 +616,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1743894636192603188, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
       propertyPath: deleteSaveOnLoad
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1743894636192603188, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
       propertyPath: targetSceneIndex

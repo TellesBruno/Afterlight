@@ -15,6 +15,7 @@ TagManager:
   - EnvironmentalDamage
   - DialogScreen
   - PauseMenu
+  - Tutotial
   layers:
   - Default
   - TransparentFX

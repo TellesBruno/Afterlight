@@ -14,7 +14,17 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private PlayerInputHandler inputHandler;
     [SerializeField] private GameObject clueMenu;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject tutorialScreen;
     [SerializeField] private DialogUI dialogScreen;
+
+    private void Start()
+    {
+        if (SceneLoader.WasNewGame)
+        {
+            SceneLoader.WasNewGame = false;
+            OpenTutorial();
+        }
+    }
 
     void Update()
     {
@@ -30,9 +40,10 @@ public class GameUIController : MonoBehaviour
 
     private void HandleReturnInput()
     {
-        if (clueMenu != null && clueMenu.activeSelf)                         { CloseClueMenu();        return; }
-        if (pauseMenu != null && pauseMenu.activeSelf)                       { ClosePauseMenu();       return; }
-        if (dialogScreen != null && dialogScreen.gameObject.activeSelf)      { dialogScreen.Close();   return; }
+        if (clueMenu       != null && clueMenu.activeSelf)                   { CloseClueMenu();        return; }
+        if (tutorialScreen != null && tutorialScreen.activeSelf)             { CloseTutorial();        return; }
+        if (pauseMenu      != null && pauseMenu.activeSelf)                  { ClosePauseMenu();       return; }
+        if (dialogScreen   != null && dialogScreen.gameObject.activeSelf)    { dialogScreen.Close();   return; }
         OpenPauseMenu();
     }
 
@@ -43,6 +54,27 @@ public class GameUIController : MonoBehaviour
     }
 
     // ── Menu control ─────────────────────────────────────────────────────────
+
+    public void OpenTutorial()
+    {
+        if (tutorialScreen == null) return;
+        tutorialScreen.SetActive(true);
+        PauseGame();
+    }
+
+    public void CloseTutorial()
+    {
+        if (tutorialScreen == null) return;
+        tutorialScreen.SetActive(false);
+        ResumeGame();
+    }
+
+    public void OpenTutorialFromPauseMenu()
+    {
+        if (pauseMenu == null || tutorialScreen == null) return;
+        pauseMenu.SetActive(false);
+        tutorialScreen.SetActive(true);
+    }
 
     private void OpenClueMenu()
     {
@@ -75,18 +107,19 @@ public class GameUIController : MonoBehaviour
     // ── Helpers ──────────────────────────────────────────────────────────────
 
     private bool IsAnyMenuOpen() =>
-        (clueMenu     != null && clueMenu.activeSelf)                    ||
-        (pauseMenu    != null && pauseMenu.activeSelf)                   ||
-        (dialogScreen != null && dialogScreen.gameObject.activeSelf);
+        (clueMenu      != null && clueMenu.activeSelf)                   ||
+        (tutorialScreen != null && tutorialScreen.activeSelf)            ||
+        (pauseMenu     != null && pauseMenu.activeSelf)                  ||
+        (dialogScreen  != null && dialogScreen.gameObject.activeSelf);
 
-    private void PauseGame()
+    public void PauseGame()
     {
         Time.timeScale   = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible   = true;
     }
 
-    private void ResumeGame()
+    public void ResumeGame()
     {
         Time.timeScale   = 1f;
         Cursor.lockState = CursorLockMode.Locked;

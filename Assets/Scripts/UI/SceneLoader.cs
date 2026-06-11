@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public static bool WasNewGame;
+
     private const int SampleSceneIndex = 0;
 
     [SerializeField] private int targetSceneIndex;
@@ -20,7 +22,10 @@ public class SceneLoader : MonoBehaviour
             SaveManager.Instance?.Save();
 
         if (deleteSaveOnLoad)
+        {
             SaveManager.Instance?.DeleteSave();
+            WasNewGame = true;
+        }
 
         if (loadSaveOnEnter && targetSceneIndex == SampleSceneIndex)
         {
