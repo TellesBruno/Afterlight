@@ -23,6 +23,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction _saveStateAction;
     private InputAction _loadStateAction;
     private InputAction _clueMenuAction;
+    private InputAction _returnAction;
 
     private bool _fireWasHeld;
 
@@ -43,6 +44,7 @@ public class PlayerInputHandler : MonoBehaviour
         _saveStateAction  = InputSystem.actions.FindAction("UI/SaveState");
         _loadStateAction  = InputSystem.actions.FindAction("UI/LoadState");
         _clueMenuAction   = InputSystem.actions.FindAction("UI/ClueMenuKey");
+        _returnAction     = InputSystem.actions.FindAction("UI/Return");
 
         _moveAction?.Enable();
         _lookAction?.Enable();
@@ -59,6 +61,7 @@ public class PlayerInputHandler : MonoBehaviour
         _saveStateAction?.Enable();
         _loadStateAction?.Enable();
         _clueMenuAction?.Enable();
+        _returnAction?.Enable();
     }
 
     void LateUpdate()
@@ -180,4 +183,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     /// <summary>True the frame I is pressed. Works regardless of cursor lock state.</summary>
     public bool GetClueMenuDown() => _clueMenuAction?.WasPressedThisFrame() ?? false;
+
+    /// <summary>True the frame Return/Esc is pressed. Works regardless of cursor lock state.</summary>
+    public bool GetReturnDown() => _returnAction?.WasPressedThisFrame() ?? false;
 }

@@ -15,18 +15,30 @@ public class ClueTrigger : MonoBehaviour
     public string ClueId => clueData != null ? clueData.id : string.Empty;
 
     private PlayerInputHandler _playerInput;
+    private GameObject _interactionPrompt;
+
+    void Awake()
+    {
+        var playerUI = GameObject.FindWithTag("PlayerUI");
+        if (playerUI != null)
+            _interactionPrompt = playerUI.transform.Find("Interaction")?.gameObject;
+    }
 
     void OnTriggerEnter(Collider other)
     {
         var handler = other.GetComponent<PlayerInputHandler>();
-        if (handler != null)
-            _playerInput = handler;
+        if (handler == null) return;
+
+        _playerInput = handler;
+        _interactionPrompt?.SetActive(true);
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<PlayerInputHandler>() != null)
-            _playerInput = null;
+        if (other.GetComponent<PlayerInputHandler>() == null) return;
+
+        _playerInput = null;
+        _interactionPrompt?.SetActive(false);
     }
 
     void Update()
@@ -52,6 +64,7 @@ public class ClueTrigger : MonoBehaviour
         }
 
         inventory.AddClue(clueData);
+        _interactionPrompt?.SetActive(false);
 
         // Disable the parent ClueObject so this trigger no longer operates.
         transform.parent.gameObject.SetActive(false);
