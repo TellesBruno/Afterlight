@@ -15,6 +15,7 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private GameObject clueMenu;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject tutorialScreen;
+    [SerializeField] private GameObject finishLevelScreen;
     [SerializeField] private DialogUI dialogScreen;
 
     private void Start()
@@ -40,10 +41,11 @@ public class GameUIController : MonoBehaviour
 
     private void HandleReturnInput()
     {
-        if (clueMenu       != null && clueMenu.activeSelf)                   { CloseClueMenu();        return; }
-        if (tutorialScreen != null && tutorialScreen.activeSelf)             { CloseTutorial();        return; }
-        if (pauseMenu      != null && pauseMenu.activeSelf)                  { ClosePauseMenu();       return; }
-        if (dialogScreen   != null && dialogScreen.gameObject.activeSelf)    { dialogScreen.Close();   return; }
+        if (clueMenu          != null && clueMenu.activeSelf)                { CloseClueMenu();        return; }
+        if (tutorialScreen    != null && tutorialScreen.activeSelf)          { CloseTutorial();        return; }
+        if (finishLevelScreen != null && finishLevelScreen.activeSelf)       { CloseFinishLevel();     return; }
+        if (pauseMenu         != null && pauseMenu.activeSelf)               { ClosePauseMenu();       return; }
+        if (dialogScreen      != null && dialogScreen.gameObject.activeSelf) { dialogScreen.Close();   return; }
         OpenPauseMenu();
     }
 
@@ -66,6 +68,20 @@ public class GameUIController : MonoBehaviour
     {
         if (tutorialScreen == null) return;
         tutorialScreen.SetActive(false);
+        ResumeGame();
+    }
+
+    public void OpenFinishLevel()
+    {
+        if (finishLevelScreen == null) return;
+        finishLevelScreen.SetActive(true);
+        PauseGame();
+    }
+
+    public void CloseFinishLevel()
+    {
+        if (finishLevelScreen == null) return;
+        finishLevelScreen.SetActive(false);
         ResumeGame();
     }
 
@@ -107,10 +123,11 @@ public class GameUIController : MonoBehaviour
     // ── Helpers ──────────────────────────────────────────────────────────────
 
     private bool IsAnyMenuOpen() =>
-        (clueMenu      != null && clueMenu.activeSelf)                   ||
-        (tutorialScreen != null && tutorialScreen.activeSelf)            ||
-        (pauseMenu     != null && pauseMenu.activeSelf)                  ||
-        (dialogScreen  != null && dialogScreen.gameObject.activeSelf);
+        (clueMenu          != null && clueMenu.activeSelf)               ||
+        (tutorialScreen    != null && tutorialScreen.activeSelf)         ||
+        (finishLevelScreen != null && finishLevelScreen.activeSelf)      ||
+        (pauseMenu         != null && pauseMenu.activeSelf)              ||
+        (dialogScreen      != null && dialogScreen.gameObject.activeSelf);
 
     public void PauseGame()
     {
