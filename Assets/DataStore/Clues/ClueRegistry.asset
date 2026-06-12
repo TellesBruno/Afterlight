@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ClueRegistry
   m_EditorClassIdentifier: Assembly-CSharp::ClueRegistry
   allClues:
-  - {fileID: 11400000, guid: 829b13385d9dca444a429e77beb5f63a, type: 2}
+  - {fileID: 11400000, guid: 19dfc5751e40f1c4891e1d84b5bac9cf, type: 2}
   - {fileID: 11400000, guid: 664f64fd877ec79469c72b8b1a218878, type: 2}
   - {fileID: 11400000, guid: 295ea067bf483d44da96bc9779da4e56, type: 2}

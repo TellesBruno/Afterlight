@@ -16,6 +16,7 @@ TagManager:
   - DialogScreen
   - PauseMenu
   - Tutotial
+  - Door
   layers:
   - Default
   - TransparentFX
