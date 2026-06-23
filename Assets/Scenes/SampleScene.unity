@@ -251,7 +251,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Deseja filalizar a Faze?
+  m_text: Deseja filalizar a Fase?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b13471b2bc13e6c468d088c70db0fdaa, type: 2}
   m_sharedMaterial: {fileID: 21591425618505220, guid: b13471b2bc13e6c468d088c70db0fdaa, type: 2}
@@ -7567,7 +7567,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1232407415
 RectTransform:
   m_ObjectHideFlags: 0
