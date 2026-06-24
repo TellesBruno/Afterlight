@@ -46,13 +46,20 @@ public class SaveManager : MonoBehaviour
             ammos.Add(new WeaponAmmoSaveData { slotIndex = i, currentAmmo = w.currentAmmo, totalAmmo = w.totalAmmo });
         }
 
+        var allEnemies      = FindObjectsByType<EnemyHealth>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        var incapacitatedIds = new System.Collections.Generic.List<string>();
+        foreach (var e in allEnemies)
+            if (e.IsIncapacitated && !string.IsNullOrEmpty(e.EnemyId))
+                incapacitatedIds.Add(e.EnemyId);
+
         var data = new SaveData
         {
-            collectedClueIds = clueInventory.GetCollectedIds(),
-            playerPosition   = playerTransform.position,
-            playerRotationY  = playerTransform.eulerAngles.y,
-            playerHealth     = playerHealth.GetHealth(),
-            weaponAmmos      = ammos.ToArray()
+            collectedClueIds      = clueInventory.GetCollectedIds(),
+            playerPosition        = playerTransform.position,
+            playerRotationY       = playerTransform.eulerAngles.y,
+            playerHealth          = playerHealth.GetHealth(),
+            weaponAmmos           = ammos.ToArray(),
+            incapacitatedEnemyIds = incapacitatedIds.ToArray()
         };
 
         string json = JsonUtility.ToJson(data, prettyPrint: true);
@@ -90,6 +97,9 @@ public class SaveManager : MonoBehaviour
 
         // Sync ClueObject world state (enable/disable based on collected ids)
         SyncClueWorldState(data.collectedClueIds);
+
+        // Restore incapacitated enemies
+        SyncEnemyWorldState(data.incapacitatedEnemyIds);
 
         // Restore health
         playerHealth.LoadHealth(data.playerHealth);
@@ -151,6 +161,24 @@ public class SaveManager : MonoBehaviour
         }
 
         Debug.Log($"[SaveManager] Synced {allTriggers.Length} ClueObject(s) to world state.");
+    }
+
+    /// <summary>
+    /// Finds every EnemyHealth in the scene (including disabled ones) and calls
+    /// ForceIncapacitate() on those whose ID appears in the saved list.
+    /// Mirrors the SyncClueWorldState pattern.
+    /// </summary>
+    private void SyncEnemyWorldState(string[] incapacitatedIds)
+    {
+        var idSet      = new System.Collections.Generic.HashSet<string>(
+            incapacitatedIds ?? System.Array.Empty<string>());
+        var allEnemies = FindObjectsByType<EnemyHealth>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        foreach (var e in allEnemies)
+            if (idSet.Contains(e.EnemyId))
+                e.ForceIncapacitate();
+
+        Debug.Log($"[SaveManager] Synced {allEnemies.Length} enemy(s) to world state.");
     }
 
     private bool ValidateReferences()

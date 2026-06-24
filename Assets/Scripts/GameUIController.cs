@@ -12,19 +12,30 @@ public class GameUIController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private PlayerInputHandler inputHandler;
+    [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private GameObject clueMenu;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject tutorialScreen;
     [SerializeField] private GameObject finishLevelScreen;
+    [SerializeField] private GameObject deathScreen;
     [SerializeField] private DialogUI dialogScreen;
 
     private void Start()
     {
+        if (playerHealth != null)
+            playerHealth.OnDeath += OpenDeathScreen;
+
         if (SceneLoader.WasNewGame)
         {
             SceneLoader.WasNewGame = false;
             OpenTutorial();
         }
+    }
+
+    void OnDestroy()
+    {
+        if (playerHealth != null)
+            playerHealth.OnDeath -= OpenDeathScreen;
     }
 
     void Update()
@@ -33,7 +44,8 @@ public class GameUIController : MonoBehaviour
 
         if (inputHandler.GetReturnDown())   HandleReturnInput();
         if (inputHandler.GetClueMenuDown()) HandleClueMenuInput();
-        if (inputHandler.GetSaveDown())     SaveManager.Instance?.Save();
+        if (inputHandler.GetSaveDown() && (CombatManager.Instance == null || !CombatManager.Instance.IsInCombat))
+            SaveManager.Instance?.Save();
         if (inputHandler.GetLoadDown())     SaveManager.Instance?.Load();
     }
 
@@ -41,6 +53,7 @@ public class GameUIController : MonoBehaviour
 
     private void HandleReturnInput()
     {
+        if (deathScreen       != null && deathScreen.activeSelf)             return; // não dispensável
         if (clueMenu          != null && clueMenu.activeSelf)                { CloseClueMenu();        return; }
         if (tutorialScreen    != null && tutorialScreen.activeSelf)          { CloseTutorial();        return; }
         if (finishLevelScreen != null && finishLevelScreen.activeSelf)       { CloseFinishLevel();     return; }
@@ -69,6 +82,13 @@ public class GameUIController : MonoBehaviour
         if (tutorialScreen == null) return;
         tutorialScreen.SetActive(false);
         ResumeGame();
+    }
+
+    public void OpenDeathScreen()
+    {
+        if (deathScreen == null) return;
+        deathScreen.SetActive(true);
+        PauseGame();
     }
 
     public void OpenFinishLevel()
@@ -126,6 +146,7 @@ public class GameUIController : MonoBehaviour
         (clueMenu          != null && clueMenu.activeSelf)               ||
         (tutorialScreen    != null && tutorialScreen.activeSelf)         ||
         (finishLevelScreen != null && finishLevelScreen.activeSelf)      ||
+        (deathScreen       != null && deathScreen.activeSelf)            ||
         (pauseMenu         != null && pauseMenu.activeSelf)              ||
         (dialogScreen      != null && dialogScreen.gameObject.activeSelf);
 

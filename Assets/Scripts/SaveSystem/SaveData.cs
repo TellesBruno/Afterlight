@@ -17,4 +17,5 @@ public class SaveData
     public float playerRotationY;
     public float playerHealth = 100f;
     public WeaponAmmoSaveData[] weaponAmmos = Array.Empty<WeaponAmmoSaveData>();
+    public string[] incapacitatedEnemyIds   = Array.Empty<string>();
 }

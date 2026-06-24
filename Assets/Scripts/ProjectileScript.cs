@@ -8,6 +8,15 @@ public class ProjectileScript : MonoBehaviour
     [Tooltip("Seconds before the projectile self-destructs")]
     public float lifetime = 5f;
 
+    [Tooltip("Damage applied to the target on hit. Set by the weapon or enemy that fires this projectile.")]
+    public float damage = 10f;
+
+    [Tooltip("If false the hit is non-lethal (tranquilizer). Both states currently produce the same result on enemies.")]
+    public bool isLethal = true;
+
+    [Tooltip("True when fired by the player (targets enemies). False when fired by an enemy (targets the player).")]
+    public bool firedByPlayer = true;
+
     void Start()
     {
         Destroy(gameObject, lifetime);
@@ -29,8 +38,19 @@ public class ProjectileScript : MonoBehaviour
 
     public void OnHit(Collider other)
     {
-        if (other.CompareTag("Enemy"))
-            Destroy(other.gameObject);
+        // Ignore trigger zones (RestrictedArea, LevelExit, etc.)
+        if (other.isTrigger) return;
+
+        if (firedByPlayer)
+        {
+            var target = other.GetComponentInParent<EnemyHealth>();
+            target?.TakeDamage(damage, isLethal);
+        }
+        else
+        {
+            var target = other.GetComponentInParent<PlayerHealth>();
+            target?.TakeDamage(damage);
+        }
 
         Destroy(gameObject);
     }

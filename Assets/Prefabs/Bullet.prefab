@@ -47,6 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileScript
   speed: 10
   lifetime: 5
+  damage: 30
+  isLethal: 1
+  firedByPlayer: 1
 --- !u!1 &1776571658681937813
 GameObject:
   m_ObjectHideFlags: 0
