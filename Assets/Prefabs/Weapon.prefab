@@ -138,10 +138,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
   weaponName: Weapon 01
-  damage: 20
+  damage: 30
   fireRate: 0.2
   isAutomatic: 0
   recoilForce: 0.5
+  isLethal: 1
   maxAmmo: 10
   currentAmmo: 10
   totalAmmo: 200

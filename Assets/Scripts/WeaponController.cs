@@ -12,6 +12,10 @@ public class WeaponController : MonoBehaviour
     public bool isAutomatic = false;
     public float recoilForce = 0.5f;
 
+    [Header("Weapon Type")]
+    [Tooltip("Unchecked = non-lethal (e.g. tranquilizer). Both modes currently incapacitate enemies equally.")]
+    public bool isLethal = true;
+
     [Header("Ammo")]
     public int maxAmmo = 30;
     public int currentAmmo = 30;
@@ -52,7 +56,16 @@ public class WeaponController : MonoBehaviour
         currentAmmo--;
 
         if (projectilePrefab != null && gunMuzzle != null)
-            Instantiate(projectilePrefab, gunMuzzle.position, gunMuzzle.rotation);
+        {
+            var go   = Instantiate(projectilePrefab, gunMuzzle.position, gunMuzzle.rotation);
+            var proj = go.GetComponent<ProjectileScript>();
+            if (proj != null)
+            {
+                proj.damage        = damage;
+                proj.isLethal      = isLethal;
+                proj.firedByPlayer = true;
+            }
+        }
 
         return true;
     }
