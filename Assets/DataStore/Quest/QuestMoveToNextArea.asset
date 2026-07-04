@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1efd9068b03eaf48bf8f7382e8638c7, type: 3}
+  m_Name: QuestMoveToNextArea
+  m_EditorClassIdentifier: Assembly-CSharp::QuestData
+  id: area_01_move_to_next_area_quest_004
+  title: Found the Exit of the Area
+  description: "I found the documents, now is time to move, [Ajustar para falar da
+    dire\xE7\xE3o da pr\xF3xima \xE1rea]"
+  questType: 0
+  isMandatory: 1
+  canFail: 0
+  completeCondition:
+    requiredClue: {fileID: 11400000, guid: 79cd4956783f96c439359db0db5d40dd, type: 2}
+    requiredQuest: {fileID: 11400000, guid: a80f95c1415801247adebbcdcd1afcc5, type: 2}
+    requiredQuestState: 2
+    requiredConsequence: {fileID: 0}
+  failCondition:
+    requiredClue: {fileID: 0}
+    requiredQuest: {fileID: 0}
+    requiredQuestState: 2
+    requiredConsequence: {fileID: 0}
+  rewardClue: {fileID: 0}
+  consequencesOnComplete: []
+  consequencesOnFail: []

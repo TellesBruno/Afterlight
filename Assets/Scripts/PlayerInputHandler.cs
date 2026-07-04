@@ -19,10 +19,13 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction _prevWeaponAction;
     private InputAction _nextWeaponAction;
     private InputAction _interactAction;
+    private InputAction _pickLockAction;
 
     private InputAction _saveStateAction;
     private InputAction _loadStateAction;
     private InputAction _clueMenuAction;
+    private InputAction _questMenuAction;
+    private InputAction _highlightQuestsAction;
     private InputAction _returnAction;
 
     private bool _fireWasHeld;
@@ -40,11 +43,14 @@ public class PlayerInputHandler : MonoBehaviour
         _prevWeaponAction = InputSystem.actions.FindAction("Player/Previous");
         _nextWeaponAction = InputSystem.actions.FindAction("Player/Next");
         _interactAction   = InputSystem.actions.FindAction("Player/Interact");
+        _pickLockAction   = InputSystem.actions.FindAction("Player/PickLock");
 
-        _saveStateAction  = InputSystem.actions.FindAction("UI/SaveState");
-        _loadStateAction  = InputSystem.actions.FindAction("UI/LoadState");
-        _clueMenuAction   = InputSystem.actions.FindAction("UI/ClueMenuKey");
-        _returnAction     = InputSystem.actions.FindAction("UI/Return");
+        _saveStateAction       = InputSystem.actions.FindAction("UI/SaveState");
+        _loadStateAction       = InputSystem.actions.FindAction("UI/LoadState");
+        _clueMenuAction        = InputSystem.actions.FindAction("UI/ClueMenuKey");
+        _questMenuAction       = InputSystem.actions.FindAction("UI/QuestMenuKey");
+        _highlightQuestsAction = InputSystem.actions.FindAction("UI/HighlightQuests");
+        _returnAction          = InputSystem.actions.FindAction("UI/Return");
 
         _moveAction?.Enable();
         _lookAction?.Enable();
@@ -57,10 +63,13 @@ public class PlayerInputHandler : MonoBehaviour
         _prevWeaponAction?.Enable();
         _nextWeaponAction?.Enable();
         _interactAction?.Enable();
+        _pickLockAction?.Enable();
 
         _saveStateAction?.Enable();
         _loadStateAction?.Enable();
         _clueMenuAction?.Enable();
+        _questMenuAction?.Enable();
+        _highlightQuestsAction?.Enable();
         _returnAction?.Enable();
     }
 
@@ -173,6 +182,12 @@ public class PlayerInputHandler : MonoBehaviour
         return CanProcessInput() && (_interactAction?.WasPressedThisFrame() ?? false);
     }
 
+    /// <summary>True the frame F is pressed, during normal gameplay (cursor locked). Used to pick locked doors.</summary>
+    public bool GetPickLockDown()
+    {
+        return CanProcessInput() && (_pickLockAction?.WasPressedThisFrame() ?? false);
+    }
+
     // ── UI / Global actions (bypass CanProcessInput — work regardless of cursor state) ──
 
     /// <summary>True the frame F5 is pressed. Works even when a menu is open.</summary>
@@ -183,6 +198,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     /// <summary>True the frame I is pressed. Works regardless of cursor lock state.</summary>
     public bool GetClueMenuDown() => _clueMenuAction?.WasPressedThisFrame() ?? false;
+
+    /// <summary>True the frame J is pressed. Works regardless of cursor lock state.</summary>
+    public bool GetQuestMenuDown() => _questMenuAction?.WasPressedThisFrame() ?? false;
+
+    /// <summary>True the frame Tab is pressed. Only during normal gameplay (cursor locked) — this is a HUD glance, not a menu toggle.</summary>
+    public bool GetHighlightQuestsDown() => CanProcessInput() && (_highlightQuestsAction?.WasPressedThisFrame() ?? false);
 
     /// <summary>True the frame Return/Esc is pressed. Works regardless of cursor lock state.</summary>
     public bool GetReturnDown() => _returnAction?.WasPressedThisFrame() ?? false;

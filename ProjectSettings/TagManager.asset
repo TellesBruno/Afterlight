@@ -17,6 +17,7 @@ TagManager:
   - PauseMenu
   - Tutotial
   - Door
+  - QuestMenu
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private PlayerInputHandler inputHandler;
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private GameObject clueMenu;
+    [SerializeField] private GameObject questMenu;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject tutorialScreen;
     [SerializeField] private GameObject finishLevelScreen;
@@ -42,8 +43,9 @@ public class GameUIController : MonoBehaviour
     {
         if (inputHandler == null) return;
 
-        if (inputHandler.GetReturnDown())   HandleReturnInput();
-        if (inputHandler.GetClueMenuDown()) HandleClueMenuInput();
+        if (inputHandler.GetReturnDown())    HandleReturnInput();
+        if (inputHandler.GetClueMenuDown())  HandleClueMenuInput();
+        if (inputHandler.GetQuestMenuDown()) HandleQuestMenuInput();
         if (inputHandler.GetSaveDown() && (CombatManager.Instance == null || !CombatManager.Instance.IsInCombat))
             SaveManager.Instance?.Save();
         if (inputHandler.GetLoadDown())     SaveManager.Instance?.Load();
@@ -55,6 +57,7 @@ public class GameUIController : MonoBehaviour
     {
         if (deathScreen       != null && deathScreen.activeSelf)             return; // não dispensável
         if (clueMenu          != null && clueMenu.activeSelf)                { CloseClueMenu();        return; }
+        if (questMenu         != null && questMenu.activeSelf)               { CloseQuestMenu();       return; }
         if (tutorialScreen    != null && tutorialScreen.activeSelf)          { CloseTutorial();        return; }
         if (finishLevelScreen != null && finishLevelScreen.activeSelf)       { CloseFinishLevel();     return; }
         if (pauseMenu         != null && pauseMenu.activeSelf)               { ClosePauseMenu();       return; }
@@ -66,6 +69,12 @@ public class GameUIController : MonoBehaviour
     {
         if (clueMenu != null && clueMenu.activeSelf) { CloseClueMenu(); return; }
         if (!IsAnyMenuOpen()) OpenClueMenu();
+    }
+
+    private void HandleQuestMenuInput()
+    {
+        if (questMenu != null && questMenu.activeSelf) { CloseQuestMenu(); return; }
+        if (!IsAnyMenuOpen()) OpenQuestMenu();
     }
 
     // ── Menu control ─────────────────────────────────────────────────────────
@@ -126,6 +135,20 @@ public class GameUIController : MonoBehaviour
         ResumeGame();
     }
 
+    private void OpenQuestMenu()
+    {
+        if (questMenu == null) return;
+        questMenu.SetActive(true);
+        PauseGame();
+    }
+
+    private void CloseQuestMenu()
+    {
+        if (questMenu == null) return;
+        questMenu.SetActive(false);
+        ResumeGame();
+    }
+
     private void OpenPauseMenu()
     {
         if (pauseMenu == null) return;
@@ -144,6 +167,7 @@ public class GameUIController : MonoBehaviour
 
     private bool IsAnyMenuOpen() =>
         (clueMenu          != null && clueMenu.activeSelf)               ||
+        (questMenu         != null && questMenu.activeSelf)              ||
         (tutorialScreen    != null && tutorialScreen.activeSelf)         ||
         (finishLevelScreen != null && finishLevelScreen.activeSelf)      ||
         (deathScreen       != null && deathScreen.activeSelf)            ||

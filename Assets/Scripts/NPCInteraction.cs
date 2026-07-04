@@ -19,6 +19,12 @@ public class NPCInteraction : MonoBehaviour
     [Tooltip("ClueInventory on the player. Used to check required clues and grant new ones.")]
     [SerializeField] private ClueInventory clueInventory;
 
+    [Tooltip("QuestManager on the player. Used to start quests from dialog options.")]
+    [SerializeField] private QuestManager questManager;
+
+    [Tooltip("ConsequenceTracker on the player. Used to check requiredConsequence dialog gates.")]
+    [SerializeField] private ConsequenceTracker consequenceTracker;
+
     [Tooltip("Direct reference to the DialogUI in the scene. Avoids tag search and works even when the object is inactive.")]
     [SerializeField] private DialogUI dialogUI;
 
@@ -68,7 +74,7 @@ public class NPCInteraction : MonoBehaviour
             return;
         }
 
-        dialogUI.Open(npcData, clueInventory);
+        dialogUI.Open(npcData, clueInventory, questManager, consequenceTracker);
     }
 
     /// <summary>

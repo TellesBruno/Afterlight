@@ -1,8 +1,8 @@
 ﻿<Solution>
   <Project Path="HeathenEngineering.Core.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="HeathenEngineering.UX.csproj" />
   <Project Path="HeathenEngineering.Core.Editor.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="HeathenEngineering.Editor.csproj" />
   <Project Path="HeathenEngineering.UX.Editor.csproj" />

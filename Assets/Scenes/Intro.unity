@@ -214,6 +214,14 @@ PrefabInstance:
       propertyPath: deleteSaveOnLoad
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1743894636192603188, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
+      propertyPath: questsToStartOnEnter.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743894636192603188, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
+      propertyPath: 'questsToStartOnEnter.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a80f95c1415801247adebbcdcd1afcc5, type: 2}
     - target: {fileID: 2926344372083572427, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
       propertyPath: m_Name
       value: BackToGame

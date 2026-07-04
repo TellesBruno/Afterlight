@@ -18,6 +18,9 @@ public class SaveManager : MonoBehaviour
     [SerializeField] private ClueRegistry clueRegistry;
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private WeaponManager weaponManager;
+    [SerializeField] private QuestManager questManager;
+    [SerializeField] private ConsequenceTracker consequenceTracker;
+    [SerializeField] private ConsequenceRegistry consequenceRegistry;
 
     private string SavePath => Path.Combine(Application.persistentDataPath, "save.json");
 
@@ -59,7 +62,9 @@ public class SaveManager : MonoBehaviour
             playerRotationY       = playerTransform.eulerAngles.y,
             playerHealth          = playerHealth.GetHealth(),
             weaponAmmos           = ammos.ToArray(),
-            incapacitatedEnemyIds = incapacitatedIds.ToArray()
+            incapacitatedEnemyIds = incapacitatedIds.ToArray(),
+            questStates           = questManager.GetQuestStates(),
+            appliedConsequenceIds = consequenceTracker.GetAppliedIds()
         };
 
         string json = JsonUtility.ToJson(data, prettyPrint: true);
@@ -95,6 +100,19 @@ public class SaveManager : MonoBehaviour
         // Restore clues
         clueInventory.LoadCollectedIds(data.collectedClueIds, clueRegistry);
 
+        // Restore hidden consequences and quest states.
+        // Order matters: restoring clues/consequences fires OnClueAdded/OnConsequenceApplied,
+        // which QuestManager reacts to by re-evaluating — but its state dictionary is still
+        // empty at this point, so those cascades are harmless no-ops. LoadQuestStates then
+        // stamps the final saved state directly, without re-granting rewards.
+        consequenceTracker.LoadAppliedIds(data.appliedConsequenceIds, consequenceRegistry);
+        questManager.LoadQuestStates(data.questStates);
+
+        // Safety net: re-check every restored Active quest once against the now-fully-
+        // restored clue/consequence state, in case a condition was met but never got
+        // evaluated during the session that produced this save (e.g. a missed trigger).
+        questManager.RecheckActiveQuests();
+
         // Sync ClueObject world state (enable/disable based on collected ids)
         SyncClueWorldState(data.collectedClueIds);
 
@@ -129,6 +147,16 @@ public class SaveManager : MonoBehaviour
     public void RegisterClueInventory(ClueInventory clueInventory)
     {
         this.clueInventory = clueInventory;
+    }
+
+    public void RegisterQuestManager(QuestManager questManager)
+    {
+        this.questManager = questManager;
+    }
+
+    public void RegisterConsequenceTracker(ConsequenceTracker consequenceTracker)
+    {
+        this.consequenceTracker = consequenceTracker;
     }
 
     public bool HasSaveFile() => File.Exists(SavePath);
@@ -183,11 +211,14 @@ public class SaveManager : MonoBehaviour
 
     private bool ValidateReferences()
     {
-        if (clueInventory == null)   { Debug.LogError("[SaveManager] ClueInventory reference is missing.");   return false; }
-        if (playerTransform == null) { Debug.LogError("[SaveManager] PlayerTransform reference is missing."); return false; }
-        if (clueRegistry == null)    { Debug.LogError("[SaveManager] ClueRegistry reference is missing.");    return false; }
-        if (playerHealth == null)    { Debug.LogError("[SaveManager] PlayerHealth reference is missing.");    return false; }
-        if (weaponManager == null)   { Debug.LogError("[SaveManager] WeaponManager reference is missing.");   return false; }
+        if (clueInventory == null)       { Debug.LogError("[SaveManager] ClueInventory reference is missing.");       return false; }
+        if (playerTransform == null)     { Debug.LogError("[SaveManager] PlayerTransform reference is missing.");     return false; }
+        if (clueRegistry == null)        { Debug.LogError("[SaveManager] ClueRegistry reference is missing.");        return false; }
+        if (playerHealth == null)        { Debug.LogError("[SaveManager] PlayerHealth reference is missing.");        return false; }
+        if (weaponManager == null)       { Debug.LogError("[SaveManager] WeaponManager reference is missing.");       return false; }
+        if (questManager == null)        { Debug.LogError("[SaveManager] QuestManager reference is missing.");        return false; }
+        if (consequenceTracker == null)  { Debug.LogError("[SaveManager] ConsequenceTracker reference is missing.");  return false; }
+        if (consequenceRegistry == null) { Debug.LogError("[SaveManager] ConsequenceRegistry reference is missing."); return false; }
         return true;
     }
 }

@@ -14,6 +14,10 @@ public class AutomaticDoor : MonoBehaviour
     [Tooltip("The clue the player must have collected to open this door.")]
     [SerializeField] private ClueData _requiredClue;
 
+    [Header("Lockpicking")]
+    [Tooltip("If true, a locked door can be picked open with F even without the required clue.")]
+    [SerializeField] private bool _canBePicked;
+
     [Header("Door Settings")]
     [Tooltip("The child 3D object that physically slides when the door opens/closes.")]
     [SerializeField] private Transform _doorObject;
@@ -36,6 +40,7 @@ public class AutomaticDoor : MonoBehaviour
     private GameObject _doorInteractionUI;
     private GameObject _lockedDoorUI;
     private GameObject _opennedDoorUI;
+    private GameObject _lockpickUI;
 
     private Coroutine _autoCloseCoroutine;
 
@@ -56,6 +61,7 @@ public class AutomaticDoor : MonoBehaviour
                 _doorInteractionUI = doorInteraction.gameObject;
                 _lockedDoorUI = doorInteraction.Find("LockedDoor")?.gameObject;
                 _opennedDoorUI = doorInteraction.Find("OpennedDoor")?.gameObject;
+                _lockpickUI = doorInteraction.Find("Lockpick")?.gameObject;
             }
             else
             {
@@ -93,36 +99,52 @@ public class AutomaticDoor : MonoBehaviour
     {
         MoveDoor();
 
-        if (_playerInput != null && _playerInput.GetInteractDown())
+        if (_playerInput == null) return;
+
+        if (_playerInput.GetInteractDown())
             TryInteract();
+
+        if (_playerInput.GetPickLockDown())
+            TryPickLock();
     }
+
+    bool IsLocked =>
+        _requiredClue != null && (_inventory == null || !_inventory.IsCollected(_requiredClue.id));
 
     void ShowDoorUI()
     {
         _doorInteractionUI?.SetActive(true);
 
-        bool hasClue = _requiredClue == null ||
-                       (_inventory != null && _inventory.IsCollected(_requiredClue.id));
-
-        _lockedDoorUI?.SetActive(!hasClue);
-        _opennedDoorUI?.SetActive(hasClue);
+        bool locked = IsLocked;
+        _lockedDoorUI?.SetActive(locked);
+        _opennedDoorUI?.SetActive(!locked);
+        _lockpickUI?.SetActive(_canBePicked && locked);
     }
 
     void HideDoorUI()
     {
         _lockedDoorUI?.SetActive(false);
         _opennedDoorUI?.SetActive(false);
+        _lockpickUI?.SetActive(false);
         _doorInteractionUI?.SetActive(false);
     }
 
     void TryInteract()
     {
-        if (_requiredClue != null && (_inventory == null || !_inventory.IsCollected(_requiredClue.id))) return;
+        if (IsLocked) return;
 
         if (_state == DoorState.Closed || _state == DoorState.Closing)
             OpenDoor();
         else
             CloseDoor();
+    }
+
+    void TryPickLock()
+    {
+        if (!_canBePicked || !IsLocked) return;
+
+        _lockpickUI?.SetActive(false);
+        OpenDoor();
     }
 
     void OpenDoor()

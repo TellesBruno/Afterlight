@@ -13,23 +13,39 @@ MonoBehaviour:
   m_Name: JohnNPC
   m_EditorClassIdentifier: Assembly-CSharp::NPCData
   id: NPC_000_John_NPC
-  greeting: "Ol\xE1, o que voc\xEA quer?"
+  greeting: Hello.
   options:
-  - optionText: "O que voc\xEA faz aqui?"
-    responseText: "Eu estou aqui para testar a l\xF3gica dos dialogos com personagens!"
+  - optionText: Who are you?
+    responseText: I'm John, i live here and work downtown. I din't did enenything
+      whrong.
     requiredClue: {fileID: 0}
+    requiredConsequence: {fileID: 0}
+    forbiddenConsequence: {fileID: 11400000, guid: 492180644a5059f45b8e304918c13fcd, type: 2}
     clueToGrant: {fileID: 0}
-  - optionText: Lorem Ipsum?
-    responseText: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-      sed aliquam ipsum, lacinia condimentum ante. Cras cursus consequat metus, at
-      lobortis massa blandit a. Vestibulum arcu lorem, hendrerit et aliquam et, imperdiet
-      quis risus. In ligula nibh, luctus vel ultricies dictum, porttitor et nisl.
-      Phasellus ut lacus velit. Aliquam id sem sapien. Ut nec faucibus lacus.
+    questToStart: {fileID: 0}
+  - optionText: Do you now anything about this place?
+    responseText: Maybe, i lost a memento of my daughter, help me and i tell you
+      evererything i now.
     requiredClue: {fileID: 0}
+    requiredConsequence: {fileID: 0}
+    forbiddenConsequence: {fileID: 11400000, guid: 492180644a5059f45b8e304918c13fcd, type: 2}
     clueToGrant: {fileID: 0}
-  - optionText: "Essa foto aqui \xE9 sua?"
-    responseText: "Sim, obrigado por encontrala. Como voc\xEA me ajudou, aqui est\xE1
-      a [Chave de acesso Nv1]"
+    questToStart: {fileID: 11400000, guid: fa70be8a9f77c5744b3acc1b1c1ccf64, type: 2}
+  - optionText: Here, i found your memento.
+    responseText: Thank you. I see a guy how work in a factory nerby walking to a
+      house nerby, them he vanish. I now for shure that is not a regular "factory".
+      Armed guards who shoot on sight? Very suspect.
     requiredClue: {fileID: 11400000, guid: 295ea067bf483d44da96bc9779da4e56, type: 2}
-    clueToGrant: {fileID: 11400000, guid: 19dfc5751e40f1c4891e1d84b5bac9cf, type: 2}
-  closeOptionText: "At\xE9 logo."
+    requiredConsequence: {fileID: 0}
+    forbiddenConsequence: {fileID: 11400000, guid: 492180644a5059f45b8e304918c13fcd, type: 2}
+    clueToGrant: {fileID: 0}
+    questToStart: {fileID: 11400000, guid: 4ac4dbbff601079409dd454fe1c06958, type: 2}
+  - optionText: Who are you?
+    responseText: I'm John, plese leave me be. I don't now them. I saw nothing. Don't
+      kill me. Please...
+    requiredClue: {fileID: 0}
+    requiredConsequence: {fileID: 11400000, guid: 492180644a5059f45b8e304918c13fcd, type: 2}
+    forbiddenConsequence: {fileID: 0}
+    clueToGrant: {fileID: 0}
+    questToStart: {fileID: 0}
+  closeOptionText: Bye.

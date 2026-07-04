@@ -10,6 +10,13 @@ public class WeaponAmmoSaveData
 }
 
 [Serializable]
+public class QuestSaveData
+{
+    public string id;
+    public int state; // cast to/from QuestState
+}
+
+[Serializable]
 public class SaveData
 {
     public string[] collectedClueIds = Array.Empty<string>();
@@ -18,4 +25,6 @@ public class SaveData
     public float playerHealth = 100f;
     public WeaponAmmoSaveData[] weaponAmmos = Array.Empty<WeaponAmmoSaveData>();
     public string[] incapacitatedEnemyIds   = Array.Empty<string>();
+    public QuestSaveData[] questStates      = Array.Empty<QuestSaveData>();
+    public string[] appliedConsequenceIds   = Array.Empty<string>();
 }

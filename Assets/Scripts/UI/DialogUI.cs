@@ -27,6 +27,8 @@ public class DialogUI : MonoBehaviour
     [SerializeField] private TMP_Text responseText;
 
     private ClueInventory _inventory;
+    private QuestManager _questManager;
+    private ConsequenceTracker _consequenceTracker;
 
     // ── Public API ───────────────────────────────────────────────────────────
 
@@ -34,11 +36,13 @@ public class DialogUI : MonoBehaviour
     /// Opens the dialog screen for the given NPC.
     /// Pauses the game and unlocks the cursor.
     /// </summary>
-    public void Open(NPCData data, ClueInventory inventory)
+    public void Open(NPCData data, ClueInventory inventory, QuestManager questManager, ConsequenceTracker consequenceTracker)
     {
         if (data == null) return;
 
-        _inventory = inventory;
+        _inventory          = inventory;
+        _questManager       = questManager;
+        _consequenceTracker = consequenceTracker;
 
         // Show greeting
         if (responseText != null)
@@ -70,8 +74,10 @@ public class DialogUI : MonoBehaviour
         {
             if (option == null) continue;
 
-            bool requirementMet = option.requiredClue == null
-                || (_inventory != null && _inventory.IsCollected(option.requiredClue.id));
+            bool requirementMet =
+                (option.requiredClue == null || (_inventory != null && _inventory.IsCollected(option.requiredClue.id))) &&
+                (option.requiredConsequence == null || (_consequenceTracker != null && _consequenceTracker.HasConsequence(option.requiredConsequence.id))) &&
+                (option.forbiddenConsequence == null || _consequenceTracker == null || !_consequenceTracker.HasConsequence(option.forbiddenConsequence.id));
 
             if (!requirementMet) continue;
 
@@ -108,6 +114,14 @@ public class DialogUI : MonoBehaviour
         // Grant clue if applicable
         if (option.clueToGrant != null && _inventory != null)
             _inventory.AddClue(option.clueToGrant);
+
+        // Start quest if applicable
+        if (option.questToStart != null && _questManager != null)
+            _questManager.StartQuest(option.questToStart);
+
+        // Any option selected — even one that grants nothing directly — can be
+        // the missing piece for a quest condition (e.g. a consequence gate).
+        _questManager?.RecheckActiveQuests();
     }
 
     /// <summary>Closes the dialog, resumes the game and locks the cursor.</summary>

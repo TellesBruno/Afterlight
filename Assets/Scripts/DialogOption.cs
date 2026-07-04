@@ -18,6 +18,15 @@ public class DialogOption
     [Tooltip("If set, this option is only shown when the player has collected this clue.")]
     public ClueData requiredClue;
 
+    [Tooltip("If set, this option is only shown once this (hidden, dev-only) consequence has been applied.")]
+    public ConsequenceData requiredConsequence;
+
+    [Tooltip("If set, this option is hidden once this (hidden, dev-only) consequence has been applied.")]
+    public ConsequenceData forbiddenConsequence;
+
     [Tooltip("If set, selecting this option grants this clue to the player's inventory.")]
     public ClueData clueToGrant;
+
+    [Tooltip("If set, selecting this option starts this quest.")]
+    public QuestData questToStart;
 }
