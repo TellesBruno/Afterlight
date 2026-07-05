@@ -19,6 +19,7 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private GameObject tutorialScreen;
     [SerializeField] private GameObject finishLevelScreen;
     [SerializeField] private GameObject deathScreen;
+    [SerializeField] private GameObject npcKilledScreen;
     [SerializeField] private DialogUI dialogScreen;
 
     private void Start()
@@ -56,6 +57,7 @@ public class GameUIController : MonoBehaviour
     private void HandleReturnInput()
     {
         if (deathScreen       != null && deathScreen.activeSelf)             return; // não dispensável
+        if (npcKilledScreen   != null && npcKilledScreen.activeSelf)         return; // não dispensável
         if (clueMenu          != null && clueMenu.activeSelf)                { CloseClueMenu();        return; }
         if (questMenu         != null && questMenu.activeSelf)               { CloseQuestMenu();       return; }
         if (tutorialScreen    != null && tutorialScreen.activeSelf)          { CloseTutorial();        return; }
@@ -97,6 +99,13 @@ public class GameUIController : MonoBehaviour
     {
         if (deathScreen == null) return;
         deathScreen.SetActive(true);
+        PauseGame();
+    }
+
+    public void OpenNpcKilledScreen()
+    {
+        if (npcKilledScreen == null) return;
+        npcKilledScreen.SetActive(true);
         PauseGame();
     }
 
@@ -171,6 +180,7 @@ public class GameUIController : MonoBehaviour
         (tutorialScreen    != null && tutorialScreen.activeSelf)         ||
         (finishLevelScreen != null && finishLevelScreen.activeSelf)      ||
         (deathScreen       != null && deathScreen.activeSelf)            ||
+        (npcKilledScreen   != null && npcKilledScreen.activeSelf)        ||
         (pauseMenu         != null && pauseMenu.activeSelf)              ||
         (dialogScreen      != null && dialogScreen.gameObject.activeSelf);
 

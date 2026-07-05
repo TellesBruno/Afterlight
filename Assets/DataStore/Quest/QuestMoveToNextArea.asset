@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   id: area_01_move_to_next_area_quest_004
   title: Found the Exit of the Area
-  description: "I found the documents, now is time to move, [Ajustar para falar da
-    dire\xE7\xE3o da pr\xF3xima \xE1rea]"
+  description: "I found the documents, it's time to move. [Adjust to mention the
+    direction of the next area]"
   questType: 0
   isMandatory: 1
   canFail: 0

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ConsequenceGuardKillerArea01
   m_EditorClassIdentifier: Assembly-CSharp::ConsequenceData
   id: area_01_guard_killer
-  devNotes: "Causou dano let\xE1l aos guardas da f\xE1brica na primeira \xE1rea do
-    jogo, eles n\xE3o s\xE3o necess\xE1riamente \"vil\xF5es\", est\xE3o apeas trabalhando,
-    mesmo que seja por uma corpara\xE7\xE3o de indole duvidosa."
+  devNotes: 'Dealt lethal damage to the factory guards in the game''s first area.
+    They aren''t necessarily "villains" — they''re just doing their job, even if
+    it''s for a shady corporation.'

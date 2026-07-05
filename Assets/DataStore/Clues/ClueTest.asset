@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ClueTest
   m_EditorClassIdentifier: Assembly-CSharp::ClueData
   id: clue_000_test
-  title: Pista de Teste
+  title: Test Clue
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
     mattis, velit ac vestibulum ornare, odio lacus blandit elit, vitae pellentesque
     tortor diam quis orci. Cras euismod, diam sed elementum aliquam, mauris felis

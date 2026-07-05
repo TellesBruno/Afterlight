@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DoorKey
   m_EditorClassIdentifier: Assembly-CSharp::ClueData
   id: 003_door_key
-  title: Chave de acesso Nv1
-  description: "Chave eletronica que pode ser usada para acessar a porta autom\xE1tica
-    do armaz\xE9m pr\xF3ximo."
+  title: Access Key Lv1
+  description: Electronic key used to unlock automatic doors. If John's information
+    is true, this could be used to access a nearby warehouse.

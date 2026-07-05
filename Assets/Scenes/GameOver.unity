@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Fase concluida!
+  m_text: Level Complete!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b13471b2bc13e6c468d088c70db0fdaa, type: 2}
   m_sharedMaterial: {fileID: 21591425618505220, guid: b13471b2bc13e6c468d088c70db0fdaa, type: 2}
@@ -939,7 +939,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Obrigado por jogar.
+  m_text: Thank you for playing.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b13471b2bc13e6c468d088c70db0fdaa, type: 2}
   m_sharedMaterial: {fileID: 21591425618505220, guid: b13471b2bc13e6c468d088c70db0fdaa, type: 2}

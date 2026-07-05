@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   id: area_01_investigate_area_quest_001
   title: Investigate the Area
-  description: 'I''m here to found some information about coporatios operating in
-    this area, possibly undercover, time to look around, talk with some people. Could
-    be anything, documents, data pads, data shards... '
+  description: 'I''m here to find some information about corporations operating
+    in this area, possibly undercover. Time to look around and talk to some people.
+    Could be anything — documents, data pads, data shards... '
   questType: 0
   isMandatory: 1
   canFail: 0

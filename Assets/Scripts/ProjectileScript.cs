@@ -43,7 +43,7 @@ public class ProjectileScript : MonoBehaviour
 
         if (firedByPlayer)
         {
-            var target = other.GetComponentInParent<EnemyHealth>();
+            var target = other.GetComponentInParent<IDamageable>();
             target?.TakeDamage(damage, isLethal);
         }
         else

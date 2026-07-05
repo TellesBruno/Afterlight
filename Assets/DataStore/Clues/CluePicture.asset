@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: CluePicture
   m_EditorClassIdentifier: Assembly-CSharp::ClueData
   id: clue_002_picture
-  title: Uma foto Impressa
-  description: "Em um mundo altamente digitalizado, algu\xE9m decidiu manter uma
-    recorda\xE7\xE3o fis\xEDca de um momento feliz, o dono da foto deve manter uma
-    rela\xE7\xE3o muito forte com este item, provavelemente vai ficar agradecido
-    ao encontrala."
+  title: Physical Picture
+  description: 'In a highly digitalized world, someone decided to keep a physical
+    memento of a happy moment. The owner of the picture must have a very strong
+    connection to this item — they''ll probably be grateful to have it back.'

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: CluePaper
   m_EditorClassIdentifier: Assembly-CSharp::ClueData
   id: clue_001_paper
-  title: "Peda\xE7o de Papel"
-  description: "Um bilhete escrito as pre\xE7as que diz: \xC9 merlhor revisar os
-    textos antes de ter muitas pistas!"
+  title: Thorn Paper
+  description: 'Damaged piece of paper, I can barely read it. It says: "Hey, ....
+    is on the office ... other key ... (rest is a bunch of slurs and offenses)".
+    Letters leave no digital trace, but the letter itself could be traceable...
+    There''s something wrong here... '

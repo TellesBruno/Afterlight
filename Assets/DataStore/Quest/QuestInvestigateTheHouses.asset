@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   id: area_01_investigate_house_quest_003
   title: Investigate the House
-  description: The man give me the information about a house of a local worker, seems
-    that he has access to a side door of some local facility... With some luck, he
-    has a spare key i could use.
+  description: The man gave me information about a local worker's house. It seems
+    he has access to a side door of some local facility... With some luck, he'll
+    have a spare key I could use.
   questType: 0
   isMandatory: 0
   canFail: 1

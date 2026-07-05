@@ -6,8 +6,13 @@ using UnityEngine;
 /// body pivot rotates to face the player and the dialog screen opens.
 ///
 /// Mirrors the interaction pattern of ClueTrigger.cs.
+///
+/// Also implements IDamageable: this NPC is a civilian, not a combatant, so
+/// any hit from the player (via a non-trigger Collider on this NPC or a
+/// child) is treated as shooting a civilian and opens the fail screen instead
+/// of dealing damage.
 /// </summary>
-public class NPCInteraction : MonoBehaviour
+public class NPCInteraction : MonoBehaviour, IDamageable
 {
     [Tooltip("Dialog data asset for this NPC.")]
     [SerializeField] private NPCData npcData;
@@ -27,6 +32,9 @@ public class NPCInteraction : MonoBehaviour
 
     [Tooltip("Direct reference to the DialogUI in the scene. Avoids tag search and works even when the object is inactive.")]
     [SerializeField] private DialogUI dialogUI;
+
+    [Tooltip("GameUIController in the scene. Used to open the fail screen if the player shoots this NPC.")]
+    [SerializeField] private GameUIController gameUI;
 
     [Tooltip("Rotation offset (degrees) applied on top of LookRotation. Adjust if the NPC model's forward axis is not +Z. Common values: 0, 90, 180, -90.")]
     [SerializeField] private float bodyFacingOffset = 0f;
@@ -75,6 +83,20 @@ public class NPCInteraction : MonoBehaviour
         }
 
         dialogUI.Open(npcData, clueInventory, questManager, consequenceTracker);
+    }
+
+    // ── IDamageable ──────────────────────────────────────────────────────────
+
+    /// <summary>Any hit is treated as the player shooting a civilian — opens the fail screen, same behavior as PlayerHealth's death screen.</summary>
+    public void TakeDamage(float amount, bool lethal)
+    {
+        if (gameUI == null)
+        {
+            Debug.LogWarning($"[NPCInteraction] GameUIController reference not assigned on {gameObject.name}.");
+            return;
+        }
+
+        gameUI.OpenNpcKilledScreen();
     }
 
     /// <summary>

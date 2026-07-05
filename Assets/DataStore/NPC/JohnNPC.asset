@@ -16,33 +16,33 @@ MonoBehaviour:
   greeting: Hello.
   options:
   - optionText: Who are you?
-    responseText: I'm John, i live here and work downtown. I din't did enenything
-      whrong.
+    responseText: I'm John, I live here and work downtown. I didn't do anything
+      wrong.
     requiredClue: {fileID: 0}
     requiredConsequence: {fileID: 0}
     forbiddenConsequence: {fileID: 11400000, guid: 492180644a5059f45b8e304918c13fcd, type: 2}
     clueToGrant: {fileID: 0}
     questToStart: {fileID: 0}
-  - optionText: Do you now anything about this place?
-    responseText: Maybe, i lost a memento of my daughter, help me and i tell you
-      evererything i now.
+  - optionText: Do you know anything about this place?
+    responseText: Maybe. I lost a memento of my daughter — help me and I'll tell
+      you everything I know.
     requiredClue: {fileID: 0}
     requiredConsequence: {fileID: 0}
     forbiddenConsequence: {fileID: 11400000, guid: 492180644a5059f45b8e304918c13fcd, type: 2}
     clueToGrant: {fileID: 0}
     questToStart: {fileID: 11400000, guid: fa70be8a9f77c5744b3acc1b1c1ccf64, type: 2}
-  - optionText: Here, i found your memento.
-    responseText: Thank you. I see a guy how work in a factory nerby walking to a
-      house nerby, them he vanish. I now for shure that is not a regular "factory".
-      Armed guards who shoot on sight? Very suspect.
+  - optionText: Here, I found your memento.
+    responseText: Thank you. I saw a guy who works at a warehouse nearby walking
+      to a house close by, then he vanished. I know for sure that it's not a regular
+      "warehouse". Armed guards who shoot on sight? Very suspicious...
     requiredClue: {fileID: 11400000, guid: 295ea067bf483d44da96bc9779da4e56, type: 2}
     requiredConsequence: {fileID: 0}
     forbiddenConsequence: {fileID: 11400000, guid: 492180644a5059f45b8e304918c13fcd, type: 2}
     clueToGrant: {fileID: 0}
     questToStart: {fileID: 11400000, guid: 4ac4dbbff601079409dd454fe1c06958, type: 2}
   - optionText: Who are you?
-    responseText: I'm John, plese leave me be. I don't now them. I saw nothing. Don't
-      kill me. Please...
+    responseText: I'm John, please leave me be. I don't know them. I saw nothing.
+      Don't kill me. Please...
     requiredClue: {fileID: 0}
     requiredConsequence: {fileID: 11400000, guid: 492180644a5059f45b8e304918c13fcd, type: 2}
     forbiddenConsequence: {fileID: 0}

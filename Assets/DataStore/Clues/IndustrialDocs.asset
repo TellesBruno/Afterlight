@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: IndustrialDocs
   m_EditorClassIdentifier: Assembly-CSharp::ClueData
   id: 004_industrial_docs
-  title: Documentos da Industria Local
-  description: "Documentos contem uma s\xE9rie de reme\xE7as para diversos locais,
-    chama aten\xE7\xE3o um volume particularmente grande de comprar para uma industria
-    de reciclagem pr\xF3xima."
+  title: Shipments from Local Warehouse
+  description: 'Documents about a lot of shipments to different places, but there''s
+    a particularly large volume of shipments to a recycling company in this district.
+    The documents don''t say what''s in those boxes — for other shipments, they
+    do... Too much volume to be "just tools" like the others...
+
+
+    I should probably go
+    there next. A recycling company buying lots of unregistered shipments? Even
+    if it''s not related to the case, it''s worth a look.'

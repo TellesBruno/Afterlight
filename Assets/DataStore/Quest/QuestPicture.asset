@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: QuestPicture
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   id: area_01_picture_quest_002
-  title: Faund the Missing Picture
-  description: This person has some information about how access a corporate building
-    nerby, but he is asking for help to retrieve his missing picture... I hope this
-    information worth...
+  title: Found the Missing Picture
+  description: This person has some information about how to access a nearby corporate
+    building, but he's asking for help retrieving his missing picture first... I
+    hope this information is worth it...
   questType: 1
   isMandatory: 0
   canFail: 1
