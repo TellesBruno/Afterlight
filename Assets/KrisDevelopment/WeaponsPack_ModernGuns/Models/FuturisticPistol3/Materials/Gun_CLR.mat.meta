@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8dcb04eb281127a40a206016c33f0f0e
+timeCreated: 1549921557
+licenseType: Free
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191816
+  packageName: Weapons Pack - Modern Guns
+  packageVersion: 1.0
+  assetPath: Assets/KrisDevelopment/WeaponsPack_ModernGuns/Models/FuturisticPistol3/Materials/Gun_CLR.mat
+  uploadId: 892426

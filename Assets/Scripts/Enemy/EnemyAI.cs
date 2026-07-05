@@ -16,6 +16,11 @@ using UnityEngine.AI;
 ///   4. Add EnemyHealth to this same GameObject.
 ///   5. Tag this GameObject as "Enemy".
 ///   6. Place a CombatManager in the scene.
+///   7. If a child (anywhere under this GameObject) has an Animator with a Humanoid
+///      Avatar, EnemyAnimator.controller drives it automatically: Walk while
+///      moving, Turn180 at each waypoint, Aim while stopped to shoot, Death on
+///      incapacitation. No manual wiring needed beyond assigning the Controller
+///      on that Animator.
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(EnemyHealth))]
@@ -72,6 +77,7 @@ public class EnemyAI : MonoBehaviour
 
     private NavMeshAgent _agent;
     private EnemyHealth  _health;
+    private Animator     _animator;
     private Transform    _playerTransform;
 
     private int   _currentWaypointIndex;
@@ -85,8 +91,9 @@ public class EnemyAI : MonoBehaviour
 
     void Awake()
     {
-        _agent  = GetComponent<NavMeshAgent>();
-        _health = GetComponent<EnemyHealth>();
+        _agent    = GetComponent<NavMeshAgent>();
+        _health   = GetComponent<EnemyHealth>();
+        _animator = GetComponentInChildren<Animator>();
         _health.OnIncapacitated += HandleIncapacitated;
     }
 
@@ -129,6 +136,7 @@ public class EnemyAI : MonoBehaviour
         {
             _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Length;
             _agent.SetDestination(_waypoints[_currentWaypointIndex].position);
+            _animator?.SetTrigger("Turn180");
         }
 
         // Check for aggro: player must be in a RestrictedArea AND within this enemy's FOV
@@ -160,10 +168,12 @@ public class EnemyAI : MonoBehaviour
             _agent.SetDestination(transform.position);
             FaceTarget(_playerTransform.position);
             TryShoot();
+            _animator?.SetBool("IsAiming", true);
         }
         else
         {
             _agent.SetDestination(_playerTransform.position);
+            _animator?.SetBool("IsAiming", false);
         }
     }
 
@@ -182,6 +192,7 @@ public class EnemyAI : MonoBehaviour
         CombatManager.Instance?.UnregisterHostile();
         _state       = State.Patrol;
         _agent.speed = _patrolSpeed;
+        _animator?.SetBool("IsAiming", false);
 
         // Resume towards the nearest waypoint
         if (_waypoints != null && _waypoints.Length > 0)
@@ -196,8 +207,9 @@ public class EnemyAI : MonoBehaviour
         _state           = State.Incapacitated;
         _agent.isStopped = true;
         _agent.enabled   = false;
+        _animator?.SetTrigger("Died");
 
-        // Apply death pose to the visible body mesh
+        // Apply death pose to the visible body mesh (no-op if no legacy body/pose assigned)
         if (_enemyBody != null && _deathPose != null)
         {
             _enemyBody.localPosition = _deathPose.localPosition;

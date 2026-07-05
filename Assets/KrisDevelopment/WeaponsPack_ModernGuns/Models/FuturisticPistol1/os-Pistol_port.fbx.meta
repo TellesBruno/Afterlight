@@ -1,0 +1,183 @@
+fileFormatVersion: 2
+guid: bcf7a92222c4d2e43acc3caf07f653fe
+timeCreated: 1469138800
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Body
+    100002: Body.001
+    100004: Body.003
+    100006: Bullet
+    100008: Ejector
+    100010: Flashlight
+    100012: Magazine
+    100014: Mounted_Sight.001
+    100016: Mounted_Sight.002
+    100018: //RootNode
+    100020: Safety
+    100022: Screen
+    100024: Screen_Display
+    100026: Screen_Display.001
+    100028: Stock
+    100030: Sun
+    100032: Sun.001
+    100034: Trigger
+    100036: StockScrew
+    100038: Bullet_Case
+    100040: Wire_Sight
+    100042: Mounted_Sight.000
+    400000: Body
+    400002: Body.001
+    400004: Body.003
+    400006: Bullet
+    400008: Ejector
+    400010: Flashlight
+    400012: Magazine
+    400014: Mounted_Sight.001
+    400016: Mounted_Sight.002
+    400018: //RootNode
+    400020: Safety
+    400022: Screen
+    400024: Screen_Display
+    400026: Screen_Display.001
+    400028: Stock
+    400030: Sun
+    400032: Sun.001
+    400034: Trigger
+    400036: StockScrew
+    400038: Bullet_Case
+    400040: Wire_Sight
+    400042: Mounted_Sight.000
+    2300000: Body
+    2300002: Body.001
+    2300004: Body.003
+    2300006: Bullet
+    2300008: Ejector
+    2300010: Flashlight
+    2300012: Magazine
+    2300014: Mounted_Sight.001
+    2300016: Mounted_Sight.002
+    2300018: Safety
+    2300020: Screen
+    2300022: Screen_Display
+    2300024: Screen_Display.001
+    2300026: Stock
+    2300028: Trigger
+    2300030: StockScrew
+    2300032: Bullet_Case
+    2300034: Wire_Sight
+    2300036: Mounted_Sight.000
+    3300000: Body
+    3300002: Body.001
+    3300004: Body.003
+    3300006: Bullet
+    3300008: Ejector
+    3300010: Flashlight
+    3300012: Magazine
+    3300014: Mounted_Sight.001
+    3300016: Mounted_Sight.002
+    3300018: Safety
+    3300020: Screen
+    3300022: Screen_Display
+    3300024: Screen_Display.001
+    3300026: Stock
+    3300028: Trigger
+    3300030: StockScrew
+    3300032: Bullet_Case
+    3300034: Wire_Sight
+    3300036: Mounted_Sight.000
+    4300000: Body.003
+    4300002: Mounted_Sight.002
+    4300004: Body.001
+    4300006: Mounted_Sight.001
+    4300008: Screen_Display.001
+    4300010: Ejector
+    4300012: Stock
+    4300014: Screen
+    4300016: Screen_Display
+    4300018: Flashlight
+    4300020: Safety
+    4300022: Bullet
+    4300024: Magazine
+    4300026: Trigger
+    4300028: Body
+    4300030: StockScrew
+    4300032: Bullet_Case
+    4300034: Wire_Sight
+    4300036: Mounted_Sight.000
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.02
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191816
+  packageName: Weapons Pack - Modern Guns
+  packageVersion: 1.0
+  assetPath: Assets/KrisDevelopment/WeaponsPack_ModernGuns/Models/FuturisticPistol1/os-Pistol_port.fbx
+  uploadId: 892426
