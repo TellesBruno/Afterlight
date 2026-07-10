@@ -1,0 +1,233 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_PalletTruck_01
+  m_Shader: {fileID: -6465566751694194690, guid: b4de05098f8ad9d489d2bd06a7f11f9e, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _DISABLE_SSR_TRANSPARENT
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2225
+  stringTagMap:
+    MotionVector: User
+  disabledShaderPasses:
+  - TransparentDepthPrepass
+  - TransparentDepthPostpass
+  - TransparentBackface
+  - RayTracingPrepass
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Additionnal_Bake_Nrm_Texture:
+        m_Texture: {fileID: 2800000, guid: 04d2db9b13914d04bb45f663035d666d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Additionnal_Grunge01_Texture_Mask:
+        m_Texture: {fileID: 2800000, guid: 471b03529a7c0934289d0efa82214da7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Additionnal_Nrm_01:
+        m_Texture: {fileID: 2800000, guid: e577bbbcbb08cb54f8e6508ccf14c099, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseColor:
+        m_Texture: {fileID: 2800000, guid: c715e0f270c73ab4db3db34a043e9776, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: c715e0f270c73ab4db3db34a043e9776, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Base_Color:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Grunge_01:
+        m_Texture: {fileID: 2800000, guid: 4da748f2a8d63e84fb99f663d626ed11, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Grunge_02:
+        m_Texture: {fileID: 2800000, guid: 943f4d2d8d01e4e48b40d1adfd7b522c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NRM:
+        m_Texture: {fileID: 2800000, guid: a7101497ed9cc8a4ebb1aa10cae5a558, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RGB_AO_Thick_Curv:
+        m_Texture: {fileID: 2800000, guid: a7f65c94cc9071545b886a10ba5f56e1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Roughness:
+        m_Texture: {fileID: 2800000, guid: fd27f79179f3a6c4baaf8084859585cc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_2625a8408b42412bbc93a5dd618c2eec_Texture_1:
+        m_Texture: {fileID: 2800000, guid: c456f90ccc6d82542a511a5caf3af1f1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_2625a8408b42412bbc93a5dd618c2eec_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: c456f90ccc6d82542a511a5caf3af1f1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_2f8299fa886d433f865d2ec69737f2a4_Texture_1:
+        m_Texture: {fileID: 2800000, guid: eabf59dd867386d4196360f1dcb82874, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_2f8299fa886d433f865d2ec69737f2a4_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: eabf59dd867386d4196360f1dcb82874, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AO_Dirt_Contrast: 0.6
+    - _AO_Dirt_Strength: 1
+    - _AO_Dirt_amount: 0.5
+    - _AO_vs_Curv_Influence: 0.1
+    - _AddPrecomputedVelocity: 0
+    - _Add_randomness_to_AO_Areas: 0.6
+    - _Additionnal_Bake_Nrm_Intensity: 0
+    - _Additionnal_Grunge01_Intensity: 0
+    - _Additionnal_Grunge01_Tiling: 1
+    - _Additionnal_Nrm_Intensity: 0
+    - _Additionnal_Nrm_Tiling: 0
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 0
+    - _AlphaSrcBlend: 1
+    - _AlphaToMask: 0
+    - _AlphaToMaskInspectorValue: 0
+    - _Amount: 2
+    - _BlendMode: 0
+    - _Brightness: 1
+    - _ConservativeDepthOffsetEnable: 0
+    - _Contrast: 1
+    - _CullMode: 2
+    - _CullModeForward: 2
+    - _DepthOffsetEnable: 0
+    - _Dirt_Grunge_Input: 0
+    - _Dirt_Grunge_Value_Shift: -0.8
+    - _DoubleSidedEnable: 0
+    - _DoubleSidedGIMode: 0
+    - _DoubleSidedNormalMode: 2
+    - _DstBlend: 0
+    - _Edge_Damage_Dirt_Intensity: 0
+    - _EnableBlendModePreserveSpecularLighting: 1
+    - _EnableFogOnTransparent: 1
+    - _Enable_AO_Stain_FX: 1
+    - _Enable_Dirt_FX: 1
+    - _Enable_Rust_FX: 1
+    - _Invert_AO_grunge: 0.7
+    - _Invert_Grunge: 1
+    - _Metal_Intensity: 1
+    - _Nrm_Global_Intensity: 0
+    - _OpaqueCullMode: 2
+    - _QueueControl: 1
+    - _QueueOffset: 0
+    - _RayTracing: 0
+    - _ReceivesSSR: 1
+    - _ReceivesSSRTransparent: 0
+    - _RefractionModel: 0
+    - _RenderQueueType: 1
+    - _RequireSplitLighting: 0
+    - _Rotation: 0
+    - _Roughness_Intensity: 0.22
+    - _Rust_Contrast: 1.2
+    - _Rust_Normal_Strength: 5
+    - _Rust_Power: 1.2
+    - _Rust_Strength: 1.49
+    - _SecondRoughness_Intensity: 0
+    - _SecondRoughness_Tile: 0
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 8
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 10
+    - _StencilRefMV: 40
+    - _StencilWriteMask: 6
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskGBuffer: 14
+    - _StencilWriteMaskMV: 40
+    - _Subtract_Dirt_from_Edges: 0.5
+    - _SupportDecals: 1
+    - _SurfaceType: 0
+    - _Tile: 5
+    - _TransparentBackfaceEnable: 0
+    - _TransparentCullMode: 2
+    - _TransparentDepthPostpassEnable: 0
+    - _TransparentDepthPrepassEnable: 0
+    - _TransparentSortPriority: 0
+    - _TransparentWritingMotionVec: 0
+    - _TransparentZWrite: 0
+    - _UseShadowThreshold: 0
+    - _ZTestDepthEqualForOpaque: 3
+    - _ZTestGBuffer: 4
+    - _ZTestTransparent: 4
+    - _ZWrite: 1
+    m_Colors:
+    - _BC_Overlay: {r: 0.5921569, g: 0.5921569, b: 0.5921569, a: 0}
+    - _DirtCol01: {r: 0.7019608, g: 0.62352943, b: 0.47058815, a: 0}
+    - _Dirt_Col02: {r: 0.45882344, g: 0.38431367, b: 0.33333328, a: 0}
+    - _Dirt_Normal_Input: {r: 0, g: 0, b: 0, a: 0}
+    - _Dirt_Texture_Input: {r: 0, g: 0, b: 0, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _Edge_Damage_Dirt_Color: {r: 1, g: 0, b: 0, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Occlusion_Stain_Colour: {r: 0.31764707, g: 0.31764707, b: 0.31764707, a: 0}
+    - _Rust_Color: {r: 1, g: 0.5411765, b: 0, a: 0}
+    - _Rust_Edge_Color: {r: 0.6509804, g: 0.42352936, b: 0.21960777, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!114 &1241345712956405441
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 10
+--- !u!114 &5923348988054693184
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 12
+  hdPluginSubTargetMaterialVersions:
+    m_Keys: []
+    m_Values: 
