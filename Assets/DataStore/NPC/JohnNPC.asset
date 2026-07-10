@@ -16,16 +16,16 @@ MonoBehaviour:
   greeting: Hello.
   options:
   - optionText: Who are you?
-    responseText: I'm John, I live here and work downtown. I didn't do anything
-      wrong.
+    responseText: I'm John, I live here and work downtown. I didn't do anything wrong.
     requiredClue: {fileID: 0}
     requiredConsequence: {fileID: 0}
     forbiddenConsequence: {fileID: 11400000, guid: 492180644a5059f45b8e304918c13fcd, type: 2}
     clueToGrant: {fileID: 0}
     questToStart: {fileID: 0}
   - optionText: Do you know anything about this place?
-    responseText: Maybe. I lost a memento of my daughter — help me and I'll tell
-      you everything I know.
+    responseText: "Maybe. They take a memento of my daughter \u2014 help me and I'll
+      tell you everything I know. The guy works around the checkpoints between the
+      two big warehouses"
     requiredClue: {fileID: 0}
     requiredConsequence: {fileID: 0}
     forbiddenConsequence: {fileID: 11400000, guid: 492180644a5059f45b8e304918c13fcd, type: 2}
@@ -33,8 +33,9 @@ MonoBehaviour:
     questToStart: {fileID: 11400000, guid: fa70be8a9f77c5744b3acc1b1c1ccf64, type: 2}
   - optionText: Here, I found your memento.
     responseText: Thank you. I saw a guy who works at a warehouse nearby walking
-      to a house close by, then he vanished. I know for sure that it's not a regular
-      "warehouse". Armed guards who shoot on sight? Very suspicious...
+      to a house close by, close to a red container bar with a black container on
+      top, then he vanished. I know for sure that it's not a regular "warehouse".
+      Armed guards who shoot on sight if you get to close? Very suspicious...
     requiredClue: {fileID: 11400000, guid: 295ea067bf483d44da96bc9779da4e56, type: 2}
     requiredConsequence: {fileID: 0}
     forbiddenConsequence: {fileID: 11400000, guid: 492180644a5059f45b8e304918c13fcd, type: 2}
