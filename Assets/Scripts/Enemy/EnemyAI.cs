@@ -219,6 +219,7 @@ public class EnemyAI : MonoBehaviour
         _state           = State.Incapacitated;
         _agent.isStopped = true;
         _agent.enabled   = false;
+        _animator?.SetBool("IsAiming", false);
         _animator?.SetTrigger("Died");
         _weaponObject?.SetActive(false);
 

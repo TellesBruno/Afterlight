@@ -270,7 +270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1743894636192603188, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
       propertyPath: targetSceneIndex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2926344372083572427, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
       propertyPath: m_Name
@@ -1112,7 +1112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1743894636192603188, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
       propertyPath: targetSceneIndex
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2926344372083572427, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
       propertyPath: m_Name
