@@ -25,6 +25,8 @@ public class QuestManager : MonoBehaviour
 
     private readonly Dictionary<string, QuestState> _states = new Dictionary<string, QuestState>();
 
+    private bool _isRestoring;
+
     // ── Lifecycle ────────────────────────────────────────────────────────────
 
     void OnEnable()
@@ -39,8 +41,8 @@ public class QuestManager : MonoBehaviour
         if (consequenceTracker != null) consequenceTracker.OnConsequenceApplied -= HandleConsequenceApplied;
     }
 
-    private void HandleClueAdded(ClueData clue) => EvaluateAll();
-    private void HandleConsequenceApplied(ConsequenceData consequence) => EvaluateAll();
+    private void HandleClueAdded(ClueData clue) { if (!_isRestoring) EvaluateAll(); }
+    private void HandleConsequenceApplied(ConsequenceData consequence) { if (!_isRestoring) EvaluateAll(); }
 
     // ── Queries ──────────────────────────────────────────────────────────────
 
@@ -80,7 +82,7 @@ public class QuestManager : MonoBehaviour
         EvaluateAll();
     }
 
-    /// <summary>Completes a quest, granting its reward clue and applying its OnComplete consequences. No-op unless the quest is currently Active.</summary>
+    /// <summary>Completes a quest, granting its reward clue, applying its OnComplete consequences, and starting its quest chain. No-op unless the quest is currently Active.</summary>
     public void CompleteQuest(QuestData quest)
     {
         if (quest == null) return;
@@ -91,6 +93,10 @@ public class QuestManager : MonoBehaviour
         if (quest.rewardClue != null && clueInventory != null)
             clueInventory.AddClue(quest.rewardClue);
         ApplyConsequences(quest.consequencesOnComplete);
+
+        foreach (var next in quest.questsToStartOnComplete)
+            if (next != null)
+                StartQuest(next);
 
         Debug.Log($"[QuestManager] Quest completed: {quest.id} — {quest.title}");
         EvaluateAll();
@@ -135,6 +141,21 @@ public class QuestManager : MonoBehaviour
     public void RecheckActiveQuests() => EvaluateAll();
 
     /// <summary>
+    /// Suppresses cascade evaluation from OnClueAdded/OnConsequenceApplied while a save is
+    /// being restored, so quests are never evaluated against a half-restored state (e.g.
+    /// clues reloaded before quest states are). Pair with EndRestore once every piece of
+    /// save data — clues, consequences, and quest states — has been applied.
+    /// </summary>
+    public void BeginRestore() => _isRestoring = true;
+
+    /// <summary>Ends a BeginRestore block and runs the one evaluation pass that matters — against the now fully-restored state.</summary>
+    public void EndRestore()
+    {
+        _isRestoring = false;
+        EvaluateAll();
+    }
+
+    /// <summary>
     /// Re-checks every Active quest's fail/complete conditions. Called after any
     /// state change (start/complete/fail/clue gained/consequence applied).
     /// Terminates because quest states are monotonic: each quest can transition
@@ -161,7 +182,8 @@ public class QuestManager : MonoBehaviour
             return;
         }
 
-        if (!quest.completeCondition.IsEmpty && quest.completeCondition.IsMet(clueInventory, this, consequenceTracker))
+        if (!quest.manualCompletionOnly && !quest.completeCondition.IsEmpty &&
+            quest.completeCondition.IsMet(clueInventory, this, consequenceTracker))
         {
             CompleteQuest(quest);
         }
@@ -189,6 +211,15 @@ public class QuestManager : MonoBehaviour
     {
         if (savedStates == null || registry == null) return;
 
+        // Quests currently tracked but absent from the incoming save (e.g. a quest that
+        // was started live but never made it into this particular save file) must revert
+        // to NotStarted with an explicit event — not just silently drop out of _states —
+        // so listeners that cache their last-drawn state (like ActiveQuestsHUD, which only
+        // redraws on OnQuestStateChanged) don't keep showing it as active indefinitely.
+        var idsMissingFromSave = new List<string>(_states.Keys);
+        foreach (var entry in savedStates)
+            idsMissingFromSave.Remove(entry.id);
+
         _states.Clear();
 
         foreach (var entry in savedStates)
@@ -200,6 +231,13 @@ public class QuestManager : MonoBehaviour
                 continue;
             }
             SetStateInternal(quest, (QuestState)entry.state);
+        }
+
+        foreach (var id in idsMissingFromSave)
+        {
+            var quest = registry.GetById(id);
+            if (quest != null)
+                OnQuestStateChanged?.Invoke(quest, QuestState.NotStarted);
         }
     }
 

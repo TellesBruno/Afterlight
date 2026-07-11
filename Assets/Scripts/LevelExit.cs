@@ -6,6 +6,9 @@ using UnityEngine;
 /// Shows the FinishLevelInteraction UI when the player enters the trigger zone.
 /// If the player has all required clues, pressing Interact (E) pauses the game
 /// and opens the FinishLevel confirmation menu.
+/// Also completes Exit Quest (if assigned) once its Complete Condition is met
+/// while the player is inside this trigger — use a quest with Manual Completion
+/// Only enabled so it can't complete early via the automatic cascade elsewhere.
 /// </summary>
 public class LevelExit : MonoBehaviour
 {
@@ -13,11 +16,17 @@ public class LevelExit : MonoBehaviour
     [Tooltip("Todas as clues necessárias para finalizar a fase. Deixe vazio para saída livre.")]
     [SerializeField] private ClueData[] _requiredClues = Array.Empty<ClueData>();
 
+    [Header("Quest")]
+    [Tooltip("Quest completed once its Complete Condition is met while the player stands in this trigger. Should have Manual Completion Only enabled.")]
+    [SerializeField] private QuestData _exitQuest;
+
     [Header("References")]
     [SerializeField] private GameUIController _gameUI;
 
     private PlayerInputHandler _playerInput;
     private ClueInventory _inventory;
+    private QuestManager _questManager;
+    private ConsequenceTracker _consequenceTracker;
 
     private GameObject _finishLevelInteractionUI;
     private GameObject _cannotExitUI;
@@ -51,28 +60,47 @@ public class LevelExit : MonoBehaviour
         var handler = other.GetComponent<PlayerInputHandler>();
         if (handler == null) return;
 
-        _playerInput = handler;
-        _inventory   = handler.GetComponentInParent<ClueInventory>();
+        _playerInput         = handler;
+        _inventory           = handler.GetComponentInParent<ClueInventory>();
+        _questManager        = handler.GetComponentInParent<QuestManager>();
+        _consequenceTracker  = handler.GetComponentInParent<ConsequenceTracker>();
 
         ShowExitUI();
+        TryCompleteExitQuest();
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<PlayerInputHandler>() == null) return;
 
-        _playerInput = null;
-        _inventory   = null;
+        _playerInput        = null;
+        _inventory          = null;
+        _questManager       = null;
+        _consequenceTracker = null;
 
         HideExitUI();
     }
 
     void Update()
     {
-        if (_playerInput == null || !_playerInput.GetInteractDown()) return;
-        if (!HasAllClues()) return;
+        if (_playerInput == null) return;
+
+        // The clue/prior-quest requirements can become true while the player is
+        // already standing here, so keep checking every frame, not just on entry.
+        TryCompleteExitQuest();
+
+        if (!_playerInput.GetInteractDown() || !HasAllClues()) return;
 
         _gameUI.OpenFinishLevel();
+    }
+
+    void TryCompleteExitQuest()
+    {
+        if (_exitQuest == null || _questManager == null) return;
+        if (_questManager.GetState(_exitQuest) != QuestState.Active) return;
+
+        if (_exitQuest.completeCondition.IsMet(_inventory, _questManager, _consequenceTracker))
+            _questManager.CompleteQuest(_exitQuest);
     }
 
     void ShowExitUI()

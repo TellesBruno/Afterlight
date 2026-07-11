@@ -12,6 +12,9 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
 
+    /// <summary>Raised right after a save completes successfully.</summary>
+    public event System.Action OnGameSaved;
+
     [Header("References")]
     [SerializeField] private ClueInventory clueInventory;
     [SerializeField] private Transform playerTransform;
@@ -22,7 +25,7 @@ public class SaveManager : MonoBehaviour
     [SerializeField] private ConsequenceTracker consequenceTracker;
     [SerializeField] private ConsequenceRegistry consequenceRegistry;
 
-    private string SavePath => Path.Combine(Application.persistentDataPath, "save.json");
+    private static string SavePath => Path.Combine(Application.persistentDataPath, "save.json");
 
     void Awake()
     {
@@ -70,6 +73,8 @@ public class SaveManager : MonoBehaviour
         string json = JsonUtility.ToJson(data, prettyPrint: true);
         File.WriteAllText(SavePath, json);
         Debug.Log($"[SaveManager] Game saved to {SavePath}");
+
+        OnGameSaved?.Invoke();
     }
 
     public void Load()
@@ -91,27 +96,44 @@ public class SaveManager : MonoBehaviour
             return;
         }
 
-        // Restore player transform
+        // Suppress QuestManager's cascade evaluation for the whole restore: clues and
+        // consequences are about to be reloaded and will re-fire their Added/Applied
+        // events, but quest states haven't been restored yet at that point. Without this,
+        // an already-Active quest could get evaluated (and even auto-complete/fail, with
+        // real reward/consequence side effects) against that half-restored snapshot —
+        // e.g. a quest whose Complete Condition happens to already be satisfied by the
+        // reloaded clues, even though it hasn't reached its saved Active state check yet.
+        questManager.BeginRestore();
+
+        // Restore player transform. CharacterController sweeps from its own internally
+        // cached position on every Move() call (see PlayerScript.HandleMovement, which
+        // runs every frame); setting transform.position directly while it's enabled
+        // doesn't reset that cache, so its very next Move() can sweep/resolve collisions
+        // from the OLD position and shove the player back — barely noticeable over a
+        // short teleport, but very visible over a long one. Disabling the component
+        // forces it to fully re-sync to the new position instead of fighting it.
+        var controller = playerTransform.GetComponent<CharacterController>();
+        if (controller) controller.enabled = false;
+
         playerTransform.position = data.playerPosition;
         Vector3 euler = playerTransform.eulerAngles;
         euler.y = data.playerRotationY;
         playerTransform.eulerAngles = euler;
 
+        if (controller) controller.enabled = true;
+
         // Restore clues
         clueInventory.LoadCollectedIds(data.collectedClueIds, clueRegistry);
 
         // Restore hidden consequences and quest states.
-        // Order matters: restoring clues/consequences fires OnClueAdded/OnConsequenceApplied,
-        // which QuestManager reacts to by re-evaluating — but its state dictionary is still
-        // empty at this point, so those cascades are harmless no-ops. LoadQuestStates then
-        // stamps the final saved state directly, without re-granting rewards.
         consequenceTracker.LoadAppliedIds(data.appliedConsequenceIds, consequenceRegistry);
         questManager.LoadQuestStates(data.questStates);
 
-        // Safety net: re-check every restored Active quest once against the now-fully-
-        // restored clue/consequence state, in case a condition was met but never got
-        // evaluated during the session that produced this save (e.g. a missed trigger).
-        questManager.RecheckActiveQuests();
+        // Ends the restore window and performs the one evaluation pass that matters —
+        // against the now fully-restored clue/consequence/quest state — in case a
+        // condition was met but never got evaluated during the session that produced
+        // this save (e.g. a missed trigger).
+        questManager.EndRestore();
 
         // Sync ClueObject world state (enable/disable based on collected ids)
         SyncClueWorldState(data.collectedClueIds);
@@ -159,9 +181,16 @@ public class SaveManager : MonoBehaviour
         this.consequenceTracker = consequenceTracker;
     }
 
-    public bool HasSaveFile() => File.Exists(SavePath);
+    /// <summary>
+    /// Static and instance-independent on purpose: whether a save file exists on disk
+    /// has nothing to do with the SaveManager singleton being alive. Callers that run
+    /// before any scene containing a SaveManager has ever loaded (e.g. a "Delete Save"
+    /// button on a SceneLoader in an earlier scene like Intro/MainMenu) must still be
+    /// able to check/delete the save file without depending on SaveManager.Instance.
+    /// </summary>
+    public static bool HasSaveFile() => File.Exists(SavePath);
 
-    public void DeleteSave()
+    public static void DeleteSave()
     {
         if (File.Exists(SavePath))
             File.Delete(SavePath);

@@ -136,12 +136,11 @@ public class PlayerInputHandler : MonoBehaviour
         return CanProcessInput() && (_reloadAction?.WasPressedThisFrame() ?? false);
     }
 
-    /// <summary>Returns +1 (next slot), -1 (previous slot), or 0.</summary>
+    /// <summary>Returns +1 (next slot), -1 (previous slot), or 0. Scroll wheel only — Previous/Next keys select a fixed slot, see <see cref="GetSelectWeaponInput"/>.</summary>
     public int GetWeaponSwitchInput()
     {
         if (!CanProcessInput()) return 0;
 
-        // Scroll wheel (takes priority)
         var mouse = Mouse.current;
         if (mouse != null)
         {
@@ -150,17 +149,17 @@ public class PlayerInputHandler : MonoBehaviour
             if (scroll < 0f) return -1;
         }
 
-        // Keyboard Next / Previous actions
-        if (_nextWeaponAction?.WasPressedThisFrame() ?? false) return  1;
-        if (_prevWeaponAction?.WasPressedThisFrame() ?? false) return -1;
-
         return 0;
     }
 
-    /// <summary>Returns 1–9 for direct slot selection, or 0 if no digit key pressed.</summary>
+    /// <summary>Returns 1–9 for direct slot selection, or 0 if nothing was pressed. Previous/Next select weapons 1 and 2 directly.</summary>
     public int GetSelectWeaponInput()
     {
         if (!CanProcessInput()) return 0;
+
+        if (_prevWeaponAction?.WasPressedThisFrame() ?? false) return 1;
+        if (_nextWeaponAction?.WasPressedThisFrame() ?? false) return 2;
+
         var kb = Keyboard.current;
         if (kb == null) return 0;
 

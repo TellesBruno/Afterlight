@@ -21,6 +21,8 @@ using UnityEngine.AI;
 ///      moving, Turn180 at each waypoint, Aim while stopped to shoot, Death on
 ///      incapacitation. No manual wiring needed beyond assigning the Controller
 ///      on that Animator.
+///   8. Add an AudioSource on the weapon model (e.g. MuzzlePoint/Pistol_3) and
+///      assign it + a fire sound clip to the Audio fields below.
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(EnemyHealth))]
@@ -66,6 +68,12 @@ public class EnemyAI : MonoBehaviour
     [Tooltip("Height above the player's root transform used as the aim/detection target. " +
              "Set this to the CharacterController center Y so shots hit the body, not the feet.")]
     [SerializeField] private float _playerAimHeight = 0.9f;
+
+    [Header("Audio")]
+    [Tooltip("AudioSource no objeto da arma (ex.: MuzzlePoint/Pistol_3), usado para tocar o som de disparo.")]
+    [SerializeField] private AudioSource _weaponAudioSource;
+    [Tooltip("Som tocado a cada disparo.")]
+    [SerializeField] private AudioClip _fireSound;
 
     // ── Death ────────────────────────────────────────────────────────────────
 
@@ -230,6 +238,9 @@ public class EnemyAI : MonoBehaviour
         if (Time.time < _lastShotTime + 1f / _fireRate) return;
 
         _lastShotTime = Time.time;
+
+        if (_fireSound != null && _weaponAudioSource != null)
+            _weaponAudioSource.PlayOneShot(_fireSound);
 
         Vector3 dir = (_playerTransform.position + Vector3.up * _playerAimHeight - _muzzlePoint.position).normalized;
         var go  = Instantiate(_projectilePrefab, _muzzlePoint.position, Quaternion.LookRotation(dir));

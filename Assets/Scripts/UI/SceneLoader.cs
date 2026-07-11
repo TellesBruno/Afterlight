@@ -36,7 +36,7 @@ public class SceneLoader : MonoBehaviour
 
         if (deleteSaveOnLoad)
         {
-            SaveManager.Instance?.DeleteSave();
+            SaveManager.DeleteSave();
             WasNewGame = true;
         }
 

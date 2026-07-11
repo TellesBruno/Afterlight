@@ -154,7 +154,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 250}
-  m_SizeDelta: {x: 700, y: 50}
+  m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &33948708
 MonoBehaviour:
@@ -278,7 +278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905920801749634990, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
       propertyPath: m_text
-      value: Voltar ao Menu
+      value: Return to Menu
       objectReference: {fileID: 0}
     - target: {fileID: 4905920801749634990, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -872,6 +872,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5938171179512189264, guid: 6b5430f07e0571443b2e7b45371ce00b, type: 3}
+      propertyPath: m_text
+      value: Quit Game
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1116,7 +1120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905920801749634990, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
       propertyPath: m_text
-      value: Novo Jogo
+      value: New Game
       objectReference: {fileID: 0}
     - target: {fileID: 5836064692854430708, guid: 2ba9dc6df98a7f44b986ec443171281b, type: 3}
       propertyPath: m_Pivot.x

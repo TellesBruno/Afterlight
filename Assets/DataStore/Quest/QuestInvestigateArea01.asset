@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   id: area_01_investigate_area_quest_001
   title: Investigate the Area
-  description: 'I''m here to find some information about corporations operating
-    in this area, possibly undercover. Time to look around and talk to some people.
-    Could be anything — documents, data pads, data shards... '
+  description: "I'm here to find some information about corporations operating in
+    this area, possibly undercover. Time to look around and talk to some people.
+    Could be anything \u2014 documents, data pads, data shards... "
   questType: 0
   isMandatory: 1
   canFail: 0
@@ -25,6 +25,7 @@ MonoBehaviour:
     requiredQuest: {fileID: 0}
     requiredQuestState: 2
     requiredConsequence: {fileID: 0}
+  manualCompletionOnly: 0
   failCondition:
     requiredClue: {fileID: 0}
     requiredQuest: {fileID: 0}
@@ -33,3 +34,5 @@ MonoBehaviour:
   rewardClue: {fileID: 0}
   consequencesOnComplete: []
   consequencesOnFail: []
+  questsToStartOnComplete:
+  - {fileID: 11400000, guid: ee823b7374dfcc04ea40a2241b5d5ded, type: 2}

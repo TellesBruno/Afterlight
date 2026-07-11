@@ -36,16 +36,19 @@ public class ClueInventory : MonoBehaviour
         return ids;
     }
 
-    /// <summary>Restores inventory from saved ids. Fires OnClueAdded for each restored clue.</summary>
+    /// <summary>Restores inventory from saved ids. Only fires OnClueAdded for ids not already held — reloading an already-populated inventory (e.g. Save then Load mid-session) must not re-broadcast clues the player already had.</summary>
     public void LoadCollectedIds(string[] ids, ClueRegistry registry)
     {
         if (ids == null || registry == null) return;
 
-        _collectedIds.Clear();
-        _collectedClues.Clear();
+        var incomingIds = new HashSet<string>(ids);
+        _collectedIds.RemoveWhere(id => !incomingIds.Contains(id));
+        _collectedClues.RemoveAll(clue => !incomingIds.Contains(clue.id));
 
         foreach (var id in ids)
         {
+            if (_collectedIds.Contains(id)) continue; // already held — no duplicate event
+
             var clue = registry.GetById(id);
             if (clue == null)
             {

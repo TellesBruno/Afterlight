@@ -34,6 +34,9 @@ public class QuestData : ScriptableObject
     [Tooltip("Condition that must be met for this quest to auto-complete. Leave every field empty to require a manual QuestManager.CompleteQuest(...) call instead.")]
     public QuestCondition completeCondition;
 
+    [Tooltip("If true, Complete Condition is never auto-evaluated by the cascade — it only completes via a direct QuestManager.CompleteQuest(...) call from a specific script (e.g. LevelExit). Use this when the condition can become true before the moment that should actually end the quest (e.g. \"reach the exit\" quests whose clue/prior-quest requirements may already be satisfied while the player is still elsewhere on the map).")]
+    public bool manualCompletionOnly;
+
     [Tooltip("Condition that must be met for this quest to auto-fail. Only evaluated if Can Fail is true. Leave empty to only allow manual QuestManager.FailQuest(...) calls.")]
     public QuestCondition failCondition;
 
@@ -46,6 +49,10 @@ public class QuestData : ScriptableObject
 
     [Tooltip("Hidden consequences applied (never shown in UI) when this quest fails.")]
     public List<ConsequenceData> consequencesOnFail = new List<ConsequenceData>();
+
+    [Header("Quest Chain")]
+    [Tooltip("Quests started automatically (NotStarted → Active) right after this one completes. No-op for any that are already started.")]
+    public List<QuestData> questsToStartOnComplete = new List<QuestData>();
 
     private void OnValidate()
     {

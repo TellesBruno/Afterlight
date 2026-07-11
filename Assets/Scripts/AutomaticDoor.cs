@@ -7,6 +7,8 @@ using UnityEngine;
 /// If the player holds the required clue, pressing Interact (E) slides the door
 /// open; the door auto-closes after a configurable delay, or immediately on a
 /// second Interact press.
+/// An Enemy-tagged collider entering the trigger opens the door immediately,
+/// bypassing the clue requirement.
 /// </summary>
 public class AutomaticDoor : MonoBehaviour
 {
@@ -76,6 +78,13 @@ public class AutomaticDoor : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Enemy"))
+        {
+            if (_state == DoorState.Closed || _state == DoorState.Closing)
+                OpenDoor();
+            return;
+        }
+
         var handler = other.GetComponent<PlayerInputHandler>();
         if (handler == null) return;
 

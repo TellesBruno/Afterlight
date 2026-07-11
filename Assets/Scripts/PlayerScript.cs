@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerScript : MonoBehaviour
 {
     [Header("Movement")]
@@ -16,6 +17,16 @@ public class PlayerScript : MonoBehaviour
     [Tooltip("How many units the camera drops when crouching")]
     public float crouchCameraOffset = 0.5f;
 
+    [Header("Footsteps")]
+    [Tooltip("Sons de passo; um deles é escolhido aleatoriamente a cada passo.")]
+    public AudioClip[] footstepSounds;
+    [Tooltip("Segundos entre passos andando normalmente.")]
+    public float footstepIntervalWalk = 0.5f;
+    [Tooltip("Segundos entre passos correndo.")]
+    public float footstepIntervalSprint = 0.3f;
+    [Tooltip("Segundos entre passos agachado.")]
+    public float footstepIntervalCrouch = 0.7f;
+
     [Header("References")]
     public Transform cameraTransform;
 
@@ -25,8 +36,10 @@ public class PlayerScript : MonoBehaviour
 
     private CharacterController _controller;
     private PlayerInputHandler _inputHandler;
+    private AudioSource _audioSource;
     private float _verticalVelocity;
     private bool _isCrouching;
+    private float _footstepTimer;
     private Vector3 _standingCameraLocalPos;
 
     void Start()
@@ -35,6 +48,7 @@ public class PlayerScript : MonoBehaviour
         Cursor.visible = false;
         _controller   = GetComponent<CharacterController>();
         _inputHandler = GetComponent<PlayerInputHandler>();
+        _audioSource  = GetComponent<AudioSource>();
 
         if (cameraTransform != null)
             _standingCameraLocalPos = cameraTransform.localPosition;
@@ -76,6 +90,26 @@ public class PlayerScript : MonoBehaviour
 
         Vector3 move = transform.TransformDirection(moveDir) * speed + Vector3.up * _verticalVelocity;
         _controller.Move(move * Time.deltaTime);
+
+        HandleFootsteps(moveDir, isSprinting);
+    }
+
+    void HandleFootsteps(Vector3 moveDir, bool isSprinting)
+    {
+        if (moveDir.sqrMagnitude < 0.01f || !_controller.isGrounded)
+        {
+            _footstepTimer = 0f;
+            return;
+        }
+
+        float interval = _isCrouching ? footstepIntervalCrouch : (isSprinting ? footstepIntervalSprint : footstepIntervalWalk);
+
+        _footstepTimer += Time.deltaTime;
+        if (_footstepTimer < interval) return;
+
+        _footstepTimer = 0f;
+        if (footstepSounds != null && footstepSounds.Length > 0)
+            _audioSource.PlayOneShot(footstepSounds[Random.Range(0, footstepSounds.Length)]);
     }
 
     void HandleCrouch()

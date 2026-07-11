@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DoorKey
   m_EditorClassIdentifier: Assembly-CSharp::ClueData
   id: 003_door_key
-  title: Access Key Lv1
-  description: Electronic key used to unlock automatic doors. If John's information
-    is true, this could be used to access a nearby warehouse.
+  title: Side Key Lv1
+  description: Key used to unlock automatic big doors. If John's information is true,
+    this could be used to access a nearby warehouse.
