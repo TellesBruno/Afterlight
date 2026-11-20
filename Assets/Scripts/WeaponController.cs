@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class WeaponController : MonoBehaviour
 {
     [Header("Info")]
@@ -29,6 +30,10 @@ public class WeaponController : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform gunMuzzle;
 
+    [Header("Audio")]
+    [Tooltip("Som tocado a cada disparo.")]
+    public AudioClip fireSound;
+
     public GameObject SourcePrefab { get; set; }
     public GameObject Owner { get; set; }
 
@@ -39,6 +44,12 @@ public class WeaponController : MonoBehaviour
     public float CurrentAmmoRatio => maxAmmo > 0 ? (float)currentAmmo / maxAmmo : 0f;
 
     private float _lastTimeShot = Mathf.NegativeInfinity;
+    private AudioSource _audioSource;
+
+    void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     /// <summary>
     /// Called every frame by WeaponManager. Returns true if a shot was fired this frame.
@@ -54,6 +65,9 @@ public class WeaponController : MonoBehaviour
 
         _lastTimeShot = Time.time;
         currentAmmo--;
+
+        if (fireSound != null)
+            _audioSource.PlayOneShot(fireSound);
 
         if (projectilePrefab != null && gunMuzzle != null)
         {

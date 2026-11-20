@@ -40,16 +40,19 @@ public class ConsequenceTracker : MonoBehaviour
         return ids;
     }
 
-    /// <summary>Restores applied consequences from saved ids. Fires OnConsequenceApplied for each restored entry.</summary>
+    /// <summary>Restores applied consequences from saved ids. Only fires OnConsequenceApplied for ids not already applied — reloading an already-populated tracker (e.g. Save then Load mid-session) must not re-broadcast consequences already in effect.</summary>
     public void LoadAppliedIds(string[] ids, ConsequenceRegistry registry)
     {
         if (ids == null || registry == null) return;
 
-        _appliedIds.Clear();
-        _appliedConsequences.Clear();
+        var incomingIds = new HashSet<string>(ids);
+        _appliedIds.RemoveWhere(id => !incomingIds.Contains(id));
+        _appliedConsequences.RemoveAll(consequence => !incomingIds.Contains(consequence.id));
 
         foreach (var id in ids)
         {
+            if (_appliedIds.Contains(id)) continue; // already applied — no duplicate event
+
             var consequence = registry.GetById(id);
             if (consequence == null)
             {

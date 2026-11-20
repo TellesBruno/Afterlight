@@ -15,7 +15,7 @@ MonoBehaviour:
   id: area_01_investigate_house_quest_003
   title: Investigate the House
   description: The man gave me information about a local worker's house. It seems
-    he has access to a side door of some local facility... With some luck, he'll
+    he has access to a side door of some local warehouse... With some luck, he'll
     have a spare key I could use.
   questType: 0
   isMandatory: 0

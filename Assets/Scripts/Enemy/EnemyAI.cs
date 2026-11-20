@@ -21,6 +21,8 @@ using UnityEngine.AI;
 ///      moving, Turn180 at each waypoint, Aim while stopped to shoot, Death on
 ///      incapacitation. No manual wiring needed beyond assigning the Controller
 ///      on that Animator.
+///   8. Add an AudioSource on the weapon model (e.g. MuzzlePoint/Pistol_3) and
+///      assign it + a fire sound clip to the Audio fields below.
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(EnemyHealth))]
@@ -52,6 +54,8 @@ public class EnemyAI : MonoBehaviour
     [Header("Combat")]
     [SerializeField] private GameObject _projectilePrefab;
     [SerializeField] private Transform  _muzzlePoint;
+    [Tooltip("The weapon model (e.g. Pistol_3 under MuzzlePoint) enabled while the enemy is aiming.")]
+    [SerializeField] private GameObject _weaponObject;
     [Tooltip("Damage per projectile.")]
     [SerializeField] private float _damage       = 15f;
     [Tooltip("Shots per second.")]
@@ -64,6 +68,12 @@ public class EnemyAI : MonoBehaviour
     [Tooltip("Height above the player's root transform used as the aim/detection target. " +
              "Set this to the CharacterController center Y so shots hit the body, not the feet.")]
     [SerializeField] private float _playerAimHeight = 0.9f;
+
+    [Header("Audio")]
+    [Tooltip("AudioSource no objeto da arma (ex.: MuzzlePoint/Pistol_3), usado para tocar o som de disparo.")]
+    [SerializeField] private AudioSource _weaponAudioSource;
+    [Tooltip("Som tocado a cada disparo.")]
+    [SerializeField] private AudioClip _fireSound;
 
     // ── Death ────────────────────────────────────────────────────────────────
 
@@ -104,6 +114,8 @@ public class EnemyAI : MonoBehaviour
         else Debug.LogWarning($"[EnemyAI] No GameObject tagged 'Player' found. Assign the 'Player' tag to the player root.");
 
         _agent.speed = _patrolSpeed;
+
+        _weaponObject?.SetActive(false);
 
         if (_waypoints != null && _waypoints.Length > 0)
             _agent.SetDestination(_waypoints[0].position);
@@ -168,12 +180,12 @@ public class EnemyAI : MonoBehaviour
             _agent.SetDestination(transform.position);
             FaceTarget(_playerTransform.position);
             TryShoot();
-            _animator?.SetBool("IsAiming", true);
+            SetAiming(true);
         }
         else
         {
             _agent.SetDestination(_playerTransform.position);
-            _animator?.SetBool("IsAiming", false);
+            SetAiming(false);
         }
     }
 
@@ -192,7 +204,7 @@ public class EnemyAI : MonoBehaviour
         CombatManager.Instance?.UnregisterHostile();
         _state       = State.Patrol;
         _agent.speed = _patrolSpeed;
-        _animator?.SetBool("IsAiming", false);
+        SetAiming(false);
 
         // Resume towards the nearest waypoint
         if (_waypoints != null && _waypoints.Length > 0)
@@ -207,7 +219,9 @@ public class EnemyAI : MonoBehaviour
         _state           = State.Incapacitated;
         _agent.isStopped = true;
         _agent.enabled   = false;
+        _animator?.SetBool("IsAiming", false);
         _animator?.SetTrigger("Died");
+        _weaponObject?.SetActive(false);
 
         // Apply death pose to the visible body mesh (no-op if no legacy body/pose assigned)
         if (_enemyBody != null && _deathPose != null)
@@ -225,6 +239,9 @@ public class EnemyAI : MonoBehaviour
         if (Time.time < _lastShotTime + 1f / _fireRate) return;
 
         _lastShotTime = Time.time;
+
+        if (_fireSound != null && _weaponAudioSource != null)
+            _weaponAudioSource.PlayOneShot(_fireSound);
 
         Vector3 dir = (_playerTransform.position + Vector3.up * _playerAimHeight - _muzzlePoint.position).normalized;
         var go  = Instantiate(_projectilePrefab, _muzzlePoint.position, Quaternion.LookRotation(dir));
@@ -259,6 +276,12 @@ public class EnemyAI : MonoBehaviour
                    hit.transform.GetComponentInParent<PlayerHealth>() != null;
 
         return true;
+    }
+
+    void SetAiming(bool isAiming)
+    {
+        _animator?.SetBool("IsAiming", isAiming);
+        _weaponObject?.SetActive(isAiming);
     }
 
     void FaceTarget(Vector3 target)

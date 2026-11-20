@@ -22,10 +22,16 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private GameObject npcKilledScreen;
     [SerializeField] private DialogUI dialogScreen;
 
+    private GameObject _deathReloadButton;
+    private GameObject _npcKilledReloadButton;
+
     private void Start()
     {
         if (playerHealth != null)
             playerHealth.OnDeath += OpenDeathScreen;
+
+        _deathReloadButton     = deathScreen?.transform.Find("Reload")?.gameObject;
+        _npcKilledReloadButton = npcKilledScreen?.transform.Find("Reload")?.gameObject;
 
         if (SceneLoader.WasNewGame)
         {
@@ -99,6 +105,7 @@ public class GameUIController : MonoBehaviour
     {
         if (deathScreen == null) return;
         deathScreen.SetActive(true);
+        UpdateReloadButtonState(_deathReloadButton);
         PauseGame();
     }
 
@@ -106,7 +113,15 @@ public class GameUIController : MonoBehaviour
     {
         if (npcKilledScreen == null) return;
         npcKilledScreen.SetActive(true);
+        UpdateReloadButtonState(_npcKilledReloadButton);
         PauseGame();
+    }
+
+    /// <summary>Disables the Reload button's GameObject if no save exists, so the player can't try to load nothing.</summary>
+    private void UpdateReloadButtonState(GameObject reloadButton)
+    {
+        if (reloadButton == null) return;
+        reloadButton.SetActive(SaveManager.HasSaveFile());
     }
 
     public void OpenFinishLevel()

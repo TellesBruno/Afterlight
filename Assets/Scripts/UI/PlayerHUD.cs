@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Drives the in-game HUD: life counter and ammo display.
@@ -14,6 +15,7 @@ public class PlayerHUD : MonoBehaviour
 {
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private WeaponManager weaponManager;
+    [SerializeField] private Image healthFill;
 
     private TMP_Text _lifeCount;
     private TMP_Text _currentAmmo;
@@ -65,6 +67,9 @@ public class PlayerHUD : MonoBehaviour
     {
         if (_lifeCount != null)
             _lifeCount.text = Mathf.CeilToInt(current).ToString();
+
+        if (healthFill != null)
+            healthFill.fillAmount = max > 0f ? Mathf.Clamp01(current / max) : 0f;
     }
 
     private void OnWeaponSwitched(WeaponController weapon)

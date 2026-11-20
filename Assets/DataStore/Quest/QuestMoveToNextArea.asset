@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   id: area_01_move_to_next_area_quest_004
   title: Found the Exit of the Area
-  description: "I found the documents, it's time to move. [Adjust to mention the
-    direction of the next area]"
+  description: "I found the documents. Time to move. I need to get back to my car
+    \u2014 I parked it near the entrance, where I met John."
   questType: 0
   isMandatory: 1
   canFail: 0
@@ -24,6 +24,7 @@ MonoBehaviour:
     requiredQuest: {fileID: 11400000, guid: a80f95c1415801247adebbcdcd1afcc5, type: 2}
     requiredQuestState: 2
     requiredConsequence: {fileID: 0}
+  manualCompletionOnly: 1
   failCondition:
     requiredClue: {fileID: 0}
     requiredQuest: {fileID: 0}
@@ -32,3 +33,4 @@ MonoBehaviour:
   rewardClue: {fileID: 0}
   consequencesOnComplete: []
   consequencesOnFail: []
+  questsToStartOnComplete: []

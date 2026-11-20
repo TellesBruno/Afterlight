@@ -6,7 +6,7 @@ public class SceneLoader : MonoBehaviour
 {
     public static bool WasNewGame;
 
-    private const int SampleSceneIndex = 0;
+    private const int SampleSceneIndex = 2;
 
     [SerializeField] private int targetSceneIndex;
     [SerializeField] private bool saveBeforeLeave;
@@ -36,7 +36,7 @@ public class SceneLoader : MonoBehaviour
 
         if (deleteSaveOnLoad)
         {
-            SaveManager.Instance?.DeleteSave();
+            SaveManager.DeleteSave();
             WasNewGame = true;
         }
 

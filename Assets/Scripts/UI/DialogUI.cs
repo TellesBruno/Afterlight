@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Drives the NPC dialog screen UI.
@@ -25,6 +26,7 @@ public class DialogUI : MonoBehaviour
 
     [Tooltip("Text field that shows the NPC's greeting and responses.")]
     [SerializeField] private TMP_Text responseText;
+    [SerializeField] private ScrollRect responseScroll;
 
     private ClueInventory _inventory;
     private QuestManager _questManager;
@@ -57,6 +59,7 @@ public class DialogUI : MonoBehaviour
         Cursor.visible       = true;
 
         gameObject.SetActive(true);
+        ResetResponseScroll();
     }
 
     // ── Private helpers ──────────────────────────────────────────────────────
@@ -110,6 +113,7 @@ public class DialogUI : MonoBehaviour
         // Show NPC response
         if (responseText != null)
             responseText.text = option.responseText;
+        ResetResponseScroll();
 
         // Grant clue if applicable
         if (option.clueToGrant != null && _inventory != null)
@@ -122,6 +126,14 @@ public class DialogUI : MonoBehaviour
         // Any option selected — even one that grants nothing directly — can be
         // the missing piece for a quest condition (e.g. a consequence gate).
         _questManager?.RecheckActiveQuests();
+    }
+
+    private void ResetResponseScroll()
+    {
+        if (responseScroll == null || responseScroll.content == null) return;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(responseScroll.content);
+        responseScroll.StopMovement();
+        responseScroll.verticalNormalizedPosition = 1f;
     }
 
     /// <summary>Closes the dialog, resumes the game and locks the cursor.</summary>
