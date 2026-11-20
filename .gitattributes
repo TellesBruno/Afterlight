@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+Assets/LeartesStudios/Cyberpunk[[:space:]]Port[[:space:]]City/Art/Textures/T_LargeContainer_Slum01_BC.PNG filter=lfs diff=lfs merge=lfs -text
+Assets/LeartesStudios/Cyberpunk[[:space:]]Port[[:space:]]City/Art/Textures/T_LargeContainer_Slum01_N.png filter=lfs diff=lfs merge=lfs -text
+Assets/LeartesStudios/Cyberpunk[[:space:]]Port[[:space:]]City/Art/Textures/T_LargeContainer_Slum02_N.png filter=lfs diff=lfs merge=lfs -text
