@@ -31,15 +31,19 @@ public class ProjectileScript : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
     }
 
     public void OnHit(Collider other)
     {
         // Ignore trigger zones (RestrictedArea, LevelExit, etc.)
         if (other.isTrigger) return;
+
+        // Player-fired bullets spawn inside/near the player's CharacterController (e.g. aiming down).
+        if (firedByPlayer && (other.CompareTag("Player") || other.GetComponentInParent<PlayerHealth>() != null))
+            return;
 
         if (firedByPlayer)
         {
