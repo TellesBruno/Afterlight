@@ -19,6 +19,15 @@ public class GUIButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private Button _button;
     private bool _hovered, _selected, _pressed, _interactable;
 
+    public void Initialize(Image buttonBackground, Image buttonSelectionMark, TMP_Text buttonLabel)
+    {
+        background = buttonBackground;
+        selectionMark = buttonSelectionMark;
+        label = buttonLabel;
+        if (_button == null) _button = GetComponent<Button>();
+        Refresh();
+    }
+
     private void Awake() => _button = GetComponent<Button>();
     private void OnEnable()
     {

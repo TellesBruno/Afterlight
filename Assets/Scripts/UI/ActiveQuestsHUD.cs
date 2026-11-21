@@ -59,6 +59,7 @@ public class ActiveQuestsHUD : MonoBehaviour
 
         if (questManager != null)
             questManager.OnQuestStateChanged += HandleQuestStateChanged;
+        LocalizationService.LanguageChanged += RefreshText;
 
         RefreshText();
     }
@@ -67,6 +68,7 @@ public class ActiveQuestsHUD : MonoBehaviour
     {
         if (questManager != null)
             questManager.OnQuestStateChanged -= HandleQuestStateChanged;
+        LocalizationService.LanguageChanged -= RefreshText;
     }
 
     void Update()
@@ -127,16 +129,16 @@ public class ActiveQuestsHUD : MonoBehaviour
 
         if (primaryCount > 0)
         {
-            sb.AppendLine("Primary Objective");
+            sb.AppendLine(LocalizationService.Get("ui.primaryObjective"));
             for (int i = 0; i < primaryCount; i++)
-                sb.AppendLine("\t" + primaries[i].title);
+                sb.AppendLine("\t" + LocalizationService.QuestTitle(primaries[i]));
         }
 
         if (secondaryCount > 0)
         {
-            sb.AppendLine("Secondary Objective");
+            sb.AppendLine(LocalizationService.Get("ui.secondaryObjective"));
             for (int i = 0; i < secondaryCount; i++)
-                sb.AppendLine("\t" + secondaries[i].title);
+                sb.AppendLine("\t" + LocalizationService.QuestTitle(secondaries[i]));
         }
 
         _text.text = sb.ToString().TrimEnd();

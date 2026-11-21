@@ -31,6 +31,12 @@ public class DialogUI : MonoBehaviour
     private ClueInventory _inventory;
     private QuestManager _questManager;
     private ConsequenceTracker _consequenceTracker;
+    private NPCData _currentData;
+    private string _responseKey;
+    private string _responseFallback;
+
+    private void OnEnable() { LocalizationService.LanguageChanged += RefreshResponse; }
+    private void OnDisable() { LocalizationService.LanguageChanged -= RefreshResponse; }
 
     // ── Public API ───────────────────────────────────────────────────────────
 
@@ -45,10 +51,13 @@ public class DialogUI : MonoBehaviour
         _inventory          = inventory;
         _questManager       = questManager;
         _consequenceTracker = consequenceTracker;
+        _currentData = data;
+        _responseKey = "npc." + data.id + ".greeting";
+        _responseFallback = data.greeting;
 
         // Show greeting
         if (responseText != null)
-            responseText.text = data.greeting;
+            responseText.text = LocalizationService.Get(_responseKey, _responseFallback);
 
         // Build option buttons
         PopulateOptions(data);
@@ -84,7 +93,7 @@ public class DialogUI : MonoBehaviour
 
             if (!requirementMet) continue;
 
-            SpawnButton(option, OnOptionSelected);
+            SpawnButton(option, "npc." + data.id + ".option." + option.localizationId + ".label", OnOptionSelected);
         }
 
         // Close option — always last
@@ -93,10 +102,10 @@ public class DialogUI : MonoBehaviour
             optionText   = data.closeOptionText,
             responseText = string.Empty
         };
-        SpawnButton(closeOption, _ => Close());
+        SpawnButton(closeOption, "npc." + data.id + ".close", _ => Close());
     }
 
-    private void SpawnButton(DialogOption option, System.Action<DialogOption> callback)
+    private void SpawnButton(DialogOption option, string localizationKey, System.Action<DialogOption> callback)
     {
         var go  = Instantiate(optionButtonPrefab, optionsContainer);
         var btn = go.GetComponent<DialogOptionButton>();
@@ -105,15 +114,15 @@ public class DialogUI : MonoBehaviour
             Debug.LogWarning("[DialogUI] optionButtonPrefab is missing a DialogOptionButton component.");
             return;
         }
-        btn.Setup(option, callback);
+        btn.Setup(option, localizationKey, callback);
     }
 
     private void OnOptionSelected(DialogOption option)
     {
         // Show NPC response
-        if (responseText != null)
-            responseText.text = option.responseText;
-        ResetResponseScroll();
+        _responseKey = "npc." + _currentData.id + ".option." + option.localizationId + ".response";
+        _responseFallback = option.responseText;
+        RefreshResponse();
 
         // Grant clue if applicable
         if (option.clueToGrant != null && _inventory != null)
@@ -126,6 +135,15 @@ public class DialogUI : MonoBehaviour
         // Any option selected — even one that grants nothing directly — can be
         // the missing piece for a quest condition (e.g. a consequence gate).
         _questManager?.RecheckActiveQuests();
+    }
+
+    private void RefreshResponse()
+    {
+        if (responseText != null && !string.IsNullOrEmpty(_responseKey))
+        {
+            responseText.text = LocalizationService.Get(_responseKey, _responseFallback);
+            ResetResponseScroll();
+        }
     }
 
     private void ResetResponseScroll()

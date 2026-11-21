@@ -30,11 +30,14 @@ public class ClueListUI : MonoBehaviour
 
     // Maps clue id → instantiated button item for O(1) refresh.
     private readonly Dictionary<string, ClueButtonItem> _buttonMap = new Dictionary<string, ClueButtonItem>();
+    private ClueData _selectedClue;
+    private bool _selectedIsCollected;
 
     // ── Lifecycle ────────────────────────────────────────────────────────────
 
     void OnEnable()
     {
+        LocalizationService.LanguageChanged += RefreshSelection;
         if (inventory != null)
             inventory.OnClueAdded += OnClueAdded;
 
@@ -44,6 +47,7 @@ public class ClueListUI : MonoBehaviour
 
     void OnDisable()
     {
+        LocalizationService.LanguageChanged -= RefreshSelection;
         if (inventory != null)
             inventory.OnClueAdded -= OnClueAdded;
     }
@@ -86,14 +90,27 @@ public class ClueListUI : MonoBehaviour
 
         if (_buttonMap.TryGetValue(clue.id, out var item))
             item.MarkCollected();
+        if (_selectedClue == clue)
+        {
+            _selectedIsCollected = true;
+            RefreshSelection();
+        }
     }
 
     private void OnButtonClicked(ClueData clue, bool isCollected)
     {
-        if (isCollected)
+        _selectedClue = clue;
+        _selectedIsCollected = isCollected;
+        RefreshSelection();
+    }
+
+    private void RefreshSelection()
+    {
+        if (_selectedClue == null) return;
+        if (_selectedIsCollected)
         {
-            titleText.text       = clue.title;
-            descriptionText.text = clue.description;
+            titleText.text       = LocalizationService.ClueTitle(_selectedClue);
+            descriptionText.text = LocalizationService.ClueDescription(_selectedClue);
         }
         else
         {
@@ -106,6 +123,7 @@ public class ClueListUI : MonoBehaviour
 
     private void ClearDetail()
     {
+        _selectedClue = null;
         if (titleText != null)       titleText.text = string.Empty;
         if (descriptionText != null) descriptionText.text = string.Empty;
     }

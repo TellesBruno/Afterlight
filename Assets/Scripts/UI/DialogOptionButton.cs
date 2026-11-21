@@ -14,19 +14,29 @@ public class DialogOptionButton : MonoBehaviour
 
     private DialogOption _option;
     private Action<DialogOption> _onClick;
+    private string _localizationKey;
 
     /// <summary>Initialises this button with a dialog option and click callback.</summary>
-    public void Setup(DialogOption option, Action<DialogOption> onClick)
+    public void Setup(DialogOption option, string localizationKey, Action<DialogOption> onClick)
     {
         _option  = option;
         _onClick = onClick;
+        _localizationKey = localizationKey;
 
-        if (label != null)
-            label.text = option.optionText;
+        RefreshLabel();
 
         var btn = GetComponent<Button>();
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(OnClick);
+    }
+
+    private void OnEnable() { LocalizationService.LanguageChanged += RefreshLabel; }
+    private void OnDisable() { LocalizationService.LanguageChanged -= RefreshLabel; }
+
+    private void RefreshLabel()
+    {
+        if (label != null && _option != null)
+            label.text = LocalizationService.Get(_localizationKey, _option.optionText);
     }
 
     private void OnClick() => _onClick?.Invoke(_option);

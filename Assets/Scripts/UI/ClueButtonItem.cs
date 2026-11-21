@@ -43,10 +43,13 @@ public class ClueButtonItem : MonoBehaviour
 
     public string ClueId => _clueData != null ? _clueData.id : string.Empty;
 
+    private void OnEnable() { LocalizationService.LanguageChanged += RefreshLabel; }
+    private void OnDisable() { LocalizationService.LanguageChanged -= RefreshLabel; }
+
     private void RefreshLabel()
     {
         if (label == null) return;
-        label.text = _isCollected ? _clueData.title : "???";
+        label.text = _isCollected ? LocalizationService.ClueTitle(_clueData) : "???";
     }
 
     private void OnClick() => _onClick?.Invoke(_clueData, _isCollected);
