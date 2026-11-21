@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: CluePaper
   m_EditorClassIdentifier: Assembly-CSharp::ClueData
   id: clue_001_paper
-  title: Thorn Paper
+  title: Torn Paper
   description: 'Damaged piece of paper, I can barely read it. It says: "Hey, ....
-    i forget on top of one orange box, near the side gate ... other key ... don''t
-    lost this one or i ... (rest is a bunch of slurs and offenses)". Letters leave
+    I left it on top of an orange box, near the side gate ... the other key ... don''t
+    lose this one or I ... (rest is a bunch of slurs and offenses)". Letters leave
     no digital trace, but the letter itself could be traceable... There''s something
     wrong here... '

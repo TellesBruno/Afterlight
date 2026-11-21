@@ -9,6 +9,7 @@ public class PauseMenuHUD : MonoBehaviour
 
     private void OnEnable()
     {
+        LocalizationService.LanguageChanged += Refresh;
         if (questManager != null)
             questManager.OnQuestStateChanged += OnQuestStateChanged;
         Refresh();
@@ -16,6 +17,7 @@ public class PauseMenuHUD : MonoBehaviour
 
     private void OnDisable()
     {
+        LocalizationService.LanguageChanged -= Refresh;
         if (questManager != null)
             questManager.OnQuestStateChanged -= OnQuestStateChanged;
     }
@@ -34,6 +36,6 @@ public class PauseMenuHUD : MonoBehaviour
                 if (quest.questType == QuestType.Primary) { selected = quest; break; }
             }
         }
-        objectiveText.text = selected != null ? selected.title : "No active objectives.";
+        objectiveText.text = selected != null ? LocalizationService.QuestTitle(selected) : LocalizationService.Get("ui.noObjectives");
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: QuestMoveToNextArea
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   id: area_01_move_to_next_area_quest_004
-  title: Found the Exit of the Area
+  title: Return to the Car
   description: "I found the documents. Time to move. I need to get back to my car
     \u2014 I parked it near the entrance, where I met John."
   questType: 0

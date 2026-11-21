@@ -68,7 +68,13 @@ public class GameUIController : MonoBehaviour
         if (questMenu         != null && questMenu.activeSelf)               { CloseQuestMenu();       return; }
         if (tutorialScreen    != null && tutorialScreen.activeSelf)          { CloseTutorial();        return; }
         if (finishLevelScreen != null && finishLevelScreen.activeSelf)       { CloseFinishLevel();     return; }
-        if (pauseMenu         != null && pauseMenu.activeSelf)               { ClosePauseMenu();       return; }
+        if (pauseMenu         != null && pauseMenu.activeSelf)
+        {
+            var languageSelector = pauseMenu.GetComponentInChildren<LanguageSelector>(true);
+            if (languageSelector != null && languageSelector.TryCloseModal()) return;
+            ClosePauseMenu();
+            return;
+        }
         if (dialogScreen      != null && dialogScreen.gameObject.activeSelf) { dialogScreen.Close();   return; }
         OpenPauseMenu();
     }

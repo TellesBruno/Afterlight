@@ -8,6 +8,9 @@ using UnityEngine;
 [Serializable]
 public class DialogOption
 {
+    [Tooltip("Stable key for localization. Keep it unchanged when reordering options.")]
+    public string localizationId;
+
     [Tooltip("Text displayed on the dialog button.")]
     public string optionText;
 

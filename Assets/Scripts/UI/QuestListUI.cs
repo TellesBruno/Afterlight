@@ -30,11 +30,14 @@ public class QuestListUI : MonoBehaviour
 
     // Maps quest id → instantiated button item for O(1) refresh.
     private readonly Dictionary<string, QuestButtonItem> _buttonMap = new Dictionary<string, QuestButtonItem>();
+    private QuestData _selectedQuest;
+    private QuestState _selectedState;
 
     // ── Lifecycle ────────────────────────────────────────────────────────────
 
     void OnEnable()
     {
+        LocalizationService.LanguageChanged += RefreshSelection;
         if (manager != null)
             manager.OnQuestStateChanged += OnQuestStateChanged;
 
@@ -44,6 +47,7 @@ public class QuestListUI : MonoBehaviour
 
     void OnDisable()
     {
+        LocalizationService.LanguageChanged -= RefreshSelection;
         if (manager != null)
             manager.OnQuestStateChanged -= OnQuestStateChanged;
     }
@@ -86,14 +90,27 @@ public class QuestListUI : MonoBehaviour
 
         if (_buttonMap.TryGetValue(quest.id, out var item))
             item.SetState(state);
+        if (_selectedQuest == quest)
+        {
+            _selectedState = state;
+            RefreshSelection();
+        }
     }
 
     private void OnButtonClicked(QuestData quest, QuestState state)
     {
-        if (state != QuestState.NotStarted)
+        _selectedQuest = quest;
+        _selectedState = state;
+        RefreshSelection();
+    }
+
+    private void RefreshSelection()
+    {
+        if (_selectedQuest == null) return;
+        if (_selectedState != QuestState.NotStarted)
         {
-            titleText.text       = quest.title;
-            descriptionText.text = quest.description;
+            titleText.text       = LocalizationService.QuestTitle(_selectedQuest);
+            descriptionText.text = LocalizationService.QuestDescription(_selectedQuest);
         }
         else
         {
@@ -106,6 +123,7 @@ public class QuestListUI : MonoBehaviour
 
     private void ClearDetail()
     {
+        _selectedQuest = null;
         if (titleText != null)       titleText.text = string.Empty;
         if (descriptionText != null) descriptionText.text = string.Empty;
     }

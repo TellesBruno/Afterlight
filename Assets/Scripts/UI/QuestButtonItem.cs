@@ -43,10 +43,13 @@ public class QuestButtonItem : MonoBehaviour
 
     public string QuestId => _questData != null ? _questData.id : string.Empty;
 
+    private void OnEnable() { LocalizationService.LanguageChanged += RefreshLabel; }
+    private void OnDisable() { LocalizationService.LanguageChanged -= RefreshLabel; }
+
     private void RefreshLabel()
     {
         if (label == null) return;
-        label.text = _state == QuestState.NotStarted ? "???" : $"{_questData.title} ({_state})";
+        label.text = _state == QuestState.NotStarted ? "???" : $"{LocalizationService.QuestTitle(_questData)} ({LocalizationService.QuestStateText(_state)})";
     }
 
     private void OnClick() => _onClick?.Invoke(_questData, _state);

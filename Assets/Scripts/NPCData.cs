@@ -21,5 +21,5 @@ public class NPCData : ScriptableObject
     public List<DialogOption> options = new List<DialogOption>();
 
     [Tooltip("Text on the button that always appears last and closes the conversation.")]
-    public string closeOptionText = "Até logo.";
+    public string closeOptionText = "Bye.";
 }
